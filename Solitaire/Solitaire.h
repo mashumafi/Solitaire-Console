@@ -15,6 +15,8 @@ private:
     stack<Card*> tableau[7];
 public:
     bool move();
+    
+    bool move(int);
 
     bool move(int, int);
 

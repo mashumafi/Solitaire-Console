@@ -4,6 +4,10 @@ bool Solitaire::move() {
     return false;
 }
 
+bool Solitaire::move(int a) {
+    return false;
+}
+
 bool Solitaire::move(int a, int b) {
     return false;
 }
