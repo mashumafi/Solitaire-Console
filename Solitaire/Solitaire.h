@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Deck.h"
+#include <stack>
 #include <iostream>
 #include <string>
 
@@ -8,10 +9,10 @@ using namespace std;
 
 class Solitaire {
 private:
-    Deck deck;
-    stack<Card> waste;
-    stack<Card> foundation[4];
-    stack<Card> tableau[7];
+    stack<Card*> deck;
+    stack<Card*> waste;
+    stack<Card*> foundation[4];
+    stack<Card*> tableau[7];
 public:
     bool move();
 

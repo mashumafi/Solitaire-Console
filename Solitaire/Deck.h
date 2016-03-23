@@ -1,11 +1,11 @@
 #pragma once
 
-#include <stack>
+#include <vector>
 #include "Card.h"
 
 using namespace std;
 
-class Deck : public stack<Card*> {
+class Deck : public vector<Card*> {
 public:
     Deck();
 };
