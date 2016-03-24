@@ -14,6 +14,7 @@ enum SolitaireState
     FAILED_DRAW,
     INVALID_COMMAND,
     GAME_ENDED,
+    QUIT,
     UNKNOWN
 };
 

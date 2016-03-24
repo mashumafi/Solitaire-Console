@@ -191,13 +191,10 @@ ostream& operator<< (ostream& stream, Solitaire &solitaire)
 int main()
 {
     Solitaire solitaire;
-    int a = 0, b = 0;
-
-    while (a != -1)
+    do
     {
         cout << solitaire << endl;
-        solitaire.move();
-    }
+    } while (solitaire.move() != QUIT);
 
     return 0;
 }
