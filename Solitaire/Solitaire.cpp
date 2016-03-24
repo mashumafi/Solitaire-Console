@@ -121,12 +121,12 @@ int Solitaire::draw()
         }
         while (!waste.empty())
         {
-            deck.push_back(waste.top());
-            waste.pop();
+            deck.push_back(waste.back());
+            waste.pop_back();
         }
     }
     deck.back()->visible = true;
-    waste.push(deck.back());
+    waste.push_back(deck.back());
     deck.pop_back();
     return SUCCESS;
 }
@@ -141,7 +141,7 @@ string Solitaire::toString() const
 
     if (!waste.empty())
     {
-        ret += waste.top()->toString();
+        ret += waste.back()->toString();
     }
     else
     {
@@ -154,7 +154,7 @@ string Solitaire::toString() const
     {
         if (!foundation[i].empty())
         {
-            ret += foundation[i].top()->toString();
+            ret += foundation[i].back()->toString();
         }
         else
         {

@@ -21,8 +21,8 @@ class Solitaire
 {
 private:
     Deck deck;
-    stack<Card*> waste;
-    stack<Card*> foundation[4];
+    vector<Card*> waste;
+    vector<Card*> foundation[4];
     vector<Card*> tableau[7];
     int draw(void);
 public:
