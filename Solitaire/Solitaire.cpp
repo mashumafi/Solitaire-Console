@@ -59,28 +59,54 @@ int Solitaire::move(int a, int b)
     // only one value passed
     if (a == b)
     {
-        // draw a card
+        // auto place on tableau
         if (a == 1)
         {
-            return draw();
+            return FAILED_MOVE;
         }
         // put card from tableau into foundation
         if (a <= 2 && a <= 8)
         {
-
-            return UNKNOWN;
+            return FAILED_MOVE;
         }
         // automatically fill foundations
         if (a <= 9 && a <= 12)
         {
-
-            return UNKNOWN;
+            return FAILED_MOVE;
         }
-        return INVALID_COMMAND;
     }
     else
     {
-
+        // move 1 card to tableau
+        if (a == 1 && (2 <= b && b <= 8))
+        {
+            return FAILED_MOVE;
+        }
+        // move 1 card to foundations
+        if (a == 1 && (9 <= b && b <= 12))
+        {
+            return FAILED_MOVE;
+        }
+        // move from tableau to another tableau
+        if ((2 <= a && a <= 8) && (2 <= b && b <= 8))
+        {
+            return FAILED_MOVE;
+        }
+        // move from foundation to another foundation
+        if ((9 <= a && a <= 12) && (2 <= b && b <= 8))
+        {
+            return FAILED_MOVE;
+        }
+        // move from tableau to foundation
+        if ((2 <= a && a <= 8) && (9 <= b && b <= 12))
+        {
+            return FAILED_MOVE;
+        }
+        // move from foundation to tableau
+        if ((9 <= a && a <= 12) && (2 <= b && b <= 8))
+        {
+            return FAILED_MOVE;
+        }
     }
     return UNKNOWN;
 }
