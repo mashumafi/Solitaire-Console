@@ -80,12 +80,38 @@ int Solitaire::move(int a, int b)
         // move 1 card to tableau
         if (a == 1 && (2 <= b && b <= 8))
         {
+            Card* A = waste.back();
+            Card* B = tableau[b - 2].back();
+            if (!B->isSameColor(A) && B->rank - 1 == A->rank)
+            {
+                tableau[b - 2].push_back(waste.back());
+                waste.pop_back();
+                return SUCCESS;
+            }
             return FAILED_MOVE;
         }
         // move 1 card to foundations
         if (a == 1 && (9 <= b && b <= 12))
         {
-            return FAILED_MOVE;
+            Card* A = waste.back();
+            if (foundation[b - 9].empty())
+            {
+                if (A->rank != Ace)
+                {
+                    return FAILED_MOVE;
+                }
+            }
+            else
+            {
+                Card* B = foundation[b - 9].back();
+                if (B->suit != A->suit || B->rank != A->rank - 1)
+                {
+                    return FAILED_MOVE;
+                }
+            }
+            foundation[b - 9].push_back(A);
+            waste.pop_back();
+            return SUCCESS;
         }
         // move from tableau to another tableau
         if ((2 <= a && a <= 8) && (2 <= b && b <= 8))

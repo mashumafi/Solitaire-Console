@@ -32,10 +32,9 @@ enum Rank
 
 class Card
 {
-private:
+public:
     unsigned int rank : 4;
     unsigned int suit : 2;
-public:
     unsigned int visible : 1;
 
     Card(int, int);
