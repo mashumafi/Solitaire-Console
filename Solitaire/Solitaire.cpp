@@ -49,13 +49,12 @@ int Solitaire::move(int a, int b)
     // value is out of bounds
     if (a > 12 || b > 12 || a < 0 || b < 0)
     {
-        return false;
+        return INVALID_COMMAND;
     }
     // draw from the deck
     if (a == 0)
     {
-        draw();
-        return true;;
+        return draw();
     }
     // only one value passed
     if (a == b)
@@ -63,26 +62,47 @@ int Solitaire::move(int a, int b)
         // draw a card
         if (a == 1)
         {
-            draw();
-            return true;
+            return draw();
         }
         // put card from tableau into foundation
         if (a <= 2 && a <= 8)
         {
 
+            return UNKNOWN;
         }
+        // automatically fill foundations
+        if (a <= 9 && a <= 12)
+        {
+
+            return UNKNOWN;
+        }
+        return INVALID_COMMAND;
     }
     else
     {
+
     }
-    return false;
+    return UNKNOWN;
 }
 
-void Solitaire::draw()
+int Solitaire::draw()
 {
+    if (deck.size() == 0)
+    {
+        if (waste.empty())
+        {
+            return FAILED_DRAW;
+        }
+        while (!waste.empty())
+        {
+            deck.push_back(waste.top());
+            waste.pop();
+        }
+    }
     deck.back()->visible = true;
     waste.push(deck.back());
     deck.pop_back();
+    return SUCCESS;
 }
 
 string Solitaire::toString() const

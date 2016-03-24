@@ -7,6 +7,16 @@
 
 using namespace std;
 
+enum SolitaireState
+{
+    SUCCESS,
+    FAILED_MOVE,
+    FAILED_DRAW,
+    INVALID_COMMAND,
+    GAME_ENDED,
+    UNKNOWN
+};
+
 class Solitaire
 {
 private:
@@ -14,7 +24,7 @@ private:
     stack<Card*> waste;
     stack<Card*> foundation[4];
     vector<Card*> tableau[7];
-    void draw(void);
+    int draw(void);
 public:
     Solitaire();
 
