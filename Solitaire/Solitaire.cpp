@@ -54,14 +54,9 @@ string Solitaire::toString() const
 {
     string ret;
     
-    if (deck.back() != NULL)
-    {
-        ret += "[  ]";
-    }
-    else
-    {
-        ret += "    ";
-    }
+    char deck_size[3];
+    sprintf(deck_size, "%02d", deck.size());
+    ret += "[" + string(deck_size) + "]";
 
     if (!waste.empty())
     {

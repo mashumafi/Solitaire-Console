@@ -1,9 +1,9 @@
 #include "Deck.h"
 
 Deck::Deck() {
-    for (int suit = 0; suit < Diamonds; suit++)
+    for (int suit = Spades; suit <= Diamonds; suit++)
     {
-        for (int rank = 0; rank < King; rank++)
+        for (int rank = Ace; rank <= King; rank++)
         {
             push_back(new Card(rank, suit));
         }
@@ -12,8 +12,8 @@ Deck::Deck() {
 
 Deck::~Deck()
 {
-    for (int i = 0; i < this->size(); i++)
+    for (int i = 0; i < size(); i++)
     {
-        delete this->at(i);
+        delete at(i);
     }
 }
