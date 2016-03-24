@@ -14,16 +14,17 @@ private:
     stack<Card*> waste;
     stack<Card*> foundation[4];
     vector<Card*> tableau[7];
+    void draw(void);
 public:
     Solitaire();
 
-    bool move();
+    int move();
 
-    bool move(string);
+    int move(string);
     
-    bool move(int);
+    int move(int);
 
-    bool move(int, int);
+    int move(int, int);
 
     string toString() const;
 

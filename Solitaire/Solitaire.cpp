@@ -16,7 +16,7 @@ Solitaire::Solitaire()
     }
 }
 
-bool Solitaire::move()
+int Solitaire::move()
 {
     char buffer[3];
     cin.getline(buffer, 3);
@@ -27,7 +27,7 @@ bool Solitaire::move()
     return ret;
 }
 
-bool Solitaire::move(string s)
+int Solitaire::move(string s)
 {
     try
     {
@@ -39,15 +39,50 @@ bool Solitaire::move(string s)
     }
 }
 
-bool Solitaire::move(int a)
+int Solitaire::move(int a)
 {
     return a < 16 ? move(a, a) : move(a / 16, a % 16);
 }
 
-bool Solitaire::move(int a, int b)
+int Solitaire::move(int a, int b)
 {
-    cout << "a:" + to_string(a) + ",b:" + to_string(b) << endl;
+    // value is out of bounds
+    if (a > 12 || b > 12 || a < 0 || b < 0)
+    {
+        return false;
+    }
+    // draw from the deck
+    if (a == 0)
+    {
+        draw();
+        return true;;
+    }
+    // only one value passed
+    if (a == b)
+    {
+        // draw a card
+        if (a == 1)
+        {
+            draw();
+            return true;
+        }
+        // put card from tableau into foundation
+        if (a <= 2 && a <= 8)
+        {
+
+        }
+    }
+    else
+    {
+    }
     return false;
+}
+
+void Solitaire::draw()
+{
+    deck.back()->visible = true;
+    waste.push(deck.back());
+    deck.pop_back();
 }
 
 string Solitaire::toString() const
