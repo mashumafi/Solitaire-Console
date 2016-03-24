@@ -1,13 +1,19 @@
 #pragma once
 
-enum Suit {
-    Clubs = 0,
+#include <string>
+
+using namespace std;
+
+enum Suit
+{
+    Spades = 0,
     Hearts = 1,
-    Clovers = 2,
+    Clubs = 2,
     Diamonds = 3
 };
 
-enum Rank {
+enum Rank
+{
     Ace = 0,
     Two = 1,
     Three = 2,
@@ -24,11 +30,14 @@ enum Rank {
     Joker = 13
 };
 
-class Card {
+class Card
+{
 public:
     unsigned int rank : 2;
     unsigned int suit : 4;
     unsigned int visible : 1;
 
     Card(int, int);
+    ~Card();
+    string toString() const;
 };

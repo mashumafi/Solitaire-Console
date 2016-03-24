@@ -5,7 +5,9 @@
 
 using namespace std;
 
-class Deck : public vector<Card*> {
+class Deck : public vector<Card*>
+{
 public:
     Deck();
+    ~Deck();
 };
