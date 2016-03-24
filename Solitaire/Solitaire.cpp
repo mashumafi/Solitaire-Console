@@ -121,24 +121,34 @@ int Solitaire::move(int a, int b)
                 return SUCCESS;
             }
         }
-        // move from tableau to another tableau
-        if ((2 <= a && a <= 8) && (2 <= b && b <= 8))
+        // move from tableau
+        if (2 <= a && a <= 8)
         {
+            // to tableau
+            if (2 <= b && b <= 8)
+            {
+                return move(tableau[a], tableau[b], true, King);
+            }
+            // to foundation
+            if (9 <= b && b <= 12)
+            {
+                return move(tableau[a], foundation[b], false, Ace);
+            }
             return FAILED_MOVE;
         }
-        // move from foundation to another foundation
-        if ((9 <= a && a <= 12) && (2 <= b && b <= 8))
+        // move from foundation
+        if ((9 <= a && a <= 12))
         {
-            return FAILED_MOVE;
-        }
-        // move from tableau to foundation
-        if ((2 <= a && a <= 8) && (9 <= b && b <= 12))
-        {
-            return FAILED_MOVE;
-        }
-        // move from foundation to tableau
-        if ((9 <= a && a <= 12) && (2 <= b && b <= 8))
-        {
+            // to tableau
+            if (2 <= b && b <= 8)
+            {
+                return move(foundation[a], tableau[b], false, King);
+            }
+            // to foundation
+            if (9 <= b && b <= 12)
+            {
+                return move(foundation[a], foundation[b], false, Ace);
+            }
             return FAILED_MOVE;
         }
     }
@@ -163,6 +173,19 @@ int Solitaire::draw()
     waste.push_back(deck.back());
     deck.pop_back();
     return SUCCESS;
+}
+
+int Solitaire::move(vector<Card*> a, vector<Card*> b, bool allowMulti, Rank base)
+{
+    if (allowMulti)
+    {
+
+    }
+    else
+    {
+
+    }
+    return 0;
 }
 
 string Solitaire::toString() const

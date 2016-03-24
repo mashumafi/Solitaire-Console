@@ -26,6 +26,7 @@ private:
     vector<Card*> foundation[4];
     vector<Card*> tableau[7];
     int draw(void);
+    int move(vector<Card*>, vector<Card*>, bool, Rank);
 public:
     Solitaire();
 
