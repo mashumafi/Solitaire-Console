@@ -18,6 +18,8 @@ public:
     Solitaire();
 
     bool move();
+
+    bool move(string);
     
     bool move(int);
 

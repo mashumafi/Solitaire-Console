@@ -18,20 +18,35 @@ Solitaire::Solitaire()
 
 bool Solitaire::move()
 {
-    return false;
+    char buffer[3];
+    cin.getline(buffer, 3);
+
+    bool ret = move(string(buffer));
+    cin.clear();
+
+    return ret;
+}
+
+bool Solitaire::move(string s)
+{
+    try
+    {
+        return move(stoi(s, NULL, 16));
+    }
+    catch (const std::exception& e)
+    {
+        return false;
+    }
 }
 
 bool Solitaire::move(int a)
 {
-    if (a == 0)
-    {
-
-    }
-    return false;
+    return a < 16 ? move(a, a) : move(a / 16, a % 16);
 }
 
 bool Solitaire::move(int a, int b)
 {
+    cout << "a:" + to_string(a) + ",b:" + to_string(b) << endl;
     return false;
 }
 
@@ -105,18 +120,7 @@ int main()
     while (a != -1)
     {
         cout << solitaire << endl;
-        cin >> a;
-        if (cin.rdbuf()->in_avail())
-        {
-            cin >> b;
-            solitaire.move(a, b);
-            cout << "move(" + to_string(a) + "," + to_string(b) + ")\n";
-        }
-        else
-        {
-            solitaire.move(a);
-            cout << "move(" + to_string(a) + ")\n";
-        }
+        solitaire.move();
     }
 
     return 0;
