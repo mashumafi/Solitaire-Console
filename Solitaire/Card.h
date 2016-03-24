@@ -40,5 +40,7 @@ public:
 
     Card(int, int);
     ~Card();
-    string toString() const;
+    string toString(void) const;
+    bool getColor(void) const;
+    bool isSameColor(Card*) const;
 };

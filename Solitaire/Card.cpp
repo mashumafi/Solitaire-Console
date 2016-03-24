@@ -21,3 +21,13 @@ string Card::toString() const
     else
         return "[  ]";
 }
+
+bool Card::getColor() const
+{
+    return suit % 2;
+}
+
+bool Card::isSameColor(Card* card) const
+{
+    return card->getColor() == getColor();
+}
