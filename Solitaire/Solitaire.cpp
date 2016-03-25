@@ -65,12 +65,16 @@ int Solitaire::move(int a, int b)
             return FAILED_MOVE;
         }
         // put card from tableau into foundation
-        if (a <= 2 && a <= 8)
+        if (a <= a && a <= 8)
         {
+            if (!tableau[a - 2].back()->visible)
+            {
+                tableau[a - 2].back()->visible = true;
+            }
             return FAILED_MOVE;
         }
         // automatically fill foundations
-        if (a <= 9 && a <= 12)
+        if (9 <= a && a <= 12)
         {
             return FAILED_MOVE;
         }
