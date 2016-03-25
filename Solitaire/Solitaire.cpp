@@ -84,41 +84,15 @@ int Solitaire::move(int a, int b)
             {
                 return FAILED_MOVE;
             }
-            // move to tableau
+            // to tableau
             if (2 <= b && b <= 8)
             {
-                Card* A = waste.back();
-                Card* B = tableau[b - 2].back();
-                if (!B->isSameColor(A) && B->rank - 1 == A->rank)
-                {
-                    tableau[b - 2].push_back(waste.back());
-                    waste.pop_back();
-                    return SUCCESS;
-                }
-                return FAILED_MOVE;
+                return move(waste, tableau[b - 2], false, King);
             }
-            // move to foundation
+            // to foundation
             if (9 <= b && b <= 12)
             {
-                Card* A = waste.back();
-                if (foundation[b - 9].empty())
-                {
-                    if (A->rank != Ace)
-                    {
-                        return FAILED_MOVE;
-                    }
-                }
-                else
-                {
-                    Card* B = foundation[b - 9].back();
-                    if (B->suit != A->suit || B->rank != A->rank - 1)
-                    {
-                        return FAILED_MOVE;
-                    }
-                }
-                foundation[b - 9].push_back(A);
-                waste.pop_back();
-                return SUCCESS;
+                return move(waste, foundation[b - 9], false, Ace);
             }
         }
         // move from tableau
@@ -127,12 +101,12 @@ int Solitaire::move(int a, int b)
             // to tableau
             if (2 <= b && b <= 8)
             {
-                return move(tableau[a], tableau[b], true, King);
+                return move(tableau[a - 2], tableau[b - 2], true, King);
             }
             // to foundation
             if (9 <= b && b <= 12)
             {
-                return move(tableau[a], foundation[b], false, Ace);
+                return move(tableau[a - 2], foundation[b - 9], false, Ace);
             }
             return FAILED_MOVE;
         }
@@ -142,12 +116,12 @@ int Solitaire::move(int a, int b)
             // to tableau
             if (2 <= b && b <= 8)
             {
-                return move(foundation[a], tableau[b], false, King);
+                return move(foundation[a - 2], tableau[b - 9], false, King);
             }
             // to foundation
             if (9 <= b && b <= 12)
             {
-                return move(foundation[a], foundation[b], false, Ace);
+                return move(foundation[a - 9], foundation[b - 9], false, Ace);
             }
             return FAILED_MOVE;
         }
@@ -175,15 +149,95 @@ int Solitaire::draw()
     return SUCCESS;
 }
 
-int Solitaire::move(vector<Card*> a, vector<Card*> b, bool allowMulti, Rank base)
+int Solitaire::move(vector<Card*>& a, vector<Card*>& b, bool allowMulti, Rank base)
 {
     if (allowMulti)
     {
-
+        Card* B = NULL;
+        if (!b.empty())
+        {
+            B = b.back();
+        }
+        
+        for (int i = a.size() - 1; i >= 0; i--)
+        {
+            Card* A = a[i];
+            if (!A->visible)
+            {
+                return FAILED_MOVE;
+            }
+            if (B == NULL || !B->visible)
+            {
+                if (A->rank == King)
+                {
+                    int dist = a.size() - i;
+                    vector<Card*> temp;
+                    for (int j = 0; j < dist; j++)
+                    {
+                        temp.push_back(a.back());
+                        a.pop_back();
+                    }
+                    while (!temp.empty())
+                    {
+                        b.push_back(temp.back());
+                        temp.pop_back();
+                    }
+                }
+            }
+            else if (!B->isSameColor(A) && B->rank - 1 == A->rank)
+            {
+                int dist = a.size() - i;
+                vector<Card*> temp;
+                for (int j = 0; j < dist; j++)
+                {
+                    temp.push_back(a.back());
+                    a.pop_back();
+                }
+                while (!temp.empty())
+                {
+                    b.push_back(temp.back());
+                    temp.pop_back();
+                }
+                return SUCCESS;
+            }
+        }
+        return FAILED_MOVE;
     }
     else
     {
-
+        Card* A = a.back();
+        if (b.empty() || !b.back()->visible)
+        {
+            if (A->rank != base)
+            {
+                return FAILED_MOVE;
+            }
+        }
+        else
+        {
+            Card* B = b.back();
+            if (base == Ace)
+            {
+                if (B->suit != A->suit || B->rank != A->rank - 1)
+                {
+                    return FAILED_MOVE;
+                }
+            }
+            else if (base == King)
+            {
+                if (B->isSameColor(A) || B->rank - 1 != A->rank)
+                {
+                    return FAILED_MOVE;
+                }
+            }
+            else
+            {
+                return INVALID_COMMAND;
+            }
+        }
+        b.push_back(A);
+        a.pop_back();
+        return SUCCESS;
     }
     return 0;
 }
