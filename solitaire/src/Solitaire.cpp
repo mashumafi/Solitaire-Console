@@ -302,7 +302,7 @@ string Solitaire::toString() const
       }
       else
       {
-        ret += "  ";
+        ret += "    ";
       }
     }
     ret += "\n";
