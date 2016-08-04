@@ -6,6 +6,7 @@
 class Game
 {
 public:
+  virtual int main();
   virtual int main(int argc, char *argv[]);
-  virtual int main(std::vector<std::string>);
+  virtual int main(const std::vector<std::string>&);
 };

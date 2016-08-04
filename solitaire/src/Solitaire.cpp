@@ -20,6 +20,15 @@ Solitaire::Solitaire()
   }
 }
 
+int Solitaire::main()
+{
+  do
+  {
+    cout << *this << endl;
+  } while (this->move() != QUIT);
+  return 0;
+}
+
 int Solitaire::move()
 {
   char buffer[3];

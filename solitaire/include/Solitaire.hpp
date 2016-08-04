@@ -1,6 +1,7 @@
 #pragma once
 
 #include <Deck.hpp>
+#include <Game.hpp>
 
 #include <stack>
 #include <iostream>
@@ -18,7 +19,7 @@ enum SolitaireState
   UNKNOWN
 };
 
-class Solitaire
+class Solitaire : public Game
 {
 private:
   Deck deck;
@@ -29,6 +30,8 @@ private:
   int move(std::vector<Card*>&, std::vector<Card*>&, bool, Rank);
 public:
   Solitaire();
+  
+  int main();
 
   int move();
 

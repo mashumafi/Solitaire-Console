@@ -2,13 +2,13 @@
 
 using namespace std;
 
-int main()
+int main(int argc, char *argv[])
 {
-  Solitaire solitaire;
-  do
-  {
-    cout << solitaire << endl;
-  } while (solitaire.move() != QUIT);
-
+  Game* game;
+  
+  game = new Solitaire;
+  
+  game->main(argc, argv);
+  
   return 0;
 }
