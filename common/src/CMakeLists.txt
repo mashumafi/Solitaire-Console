@@ -1,1 +1,1 @@
-add_library(common Card.cpp Deck.cpp)
+add_library(common Card.cpp Deck.cpp Board.cpp)
