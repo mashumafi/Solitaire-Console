@@ -1,6 +1,7 @@
 #include <Solitaire.hpp>
 
 #include <sstream>
+#include <iomanip>
 
 using namespace std;
 
@@ -270,9 +271,7 @@ string Solitaire::toString() const
 {
   std::stringstream ret;
   
-  ret << "[";
-  ret.width(2);
-  ret << deck.size() << "]";
+  ret << "[" << setw(2) << deck.size() << "]";
 
   if (!waste.empty())
   {
