@@ -1,5 +1,7 @@
 #include <Solitaire.hpp>
 
+#include <limits>
+
 using namespace std;
 
 int main(int argc, char *argv[])
@@ -12,6 +14,8 @@ int main(int argc, char *argv[])
   int i = 0;
   do {
     cin >> i;
+    cin.clear();
+    cin.ignore(std::numeric_limits<streamsize>::max(), '\n'); 
     switch(i)
     {
       case 1:

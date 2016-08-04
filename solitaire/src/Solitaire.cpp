@@ -35,10 +35,9 @@ int Solitaire::main()
 
 int Solitaire::move()
 {
-  string buffer;
-  getline(cin, buffer);
-
-  return move(buffer);
+  string line;
+  getline(cin, line);
+  return move(line);
 }
 
 int Solitaire::move(string s)
