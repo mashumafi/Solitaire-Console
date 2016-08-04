@@ -2,6 +2,10 @@
 
 using namespace std;
 
+Game::~Game()
+{
+}
+
 int Game::main(int argc, char *argv[])
 {
   vector<string> args;

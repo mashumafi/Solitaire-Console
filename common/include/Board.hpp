@@ -2,5 +2,6 @@
 
 class Board
 {
-  
+public:
+  virtual ~Board();
 };

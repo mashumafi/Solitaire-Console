@@ -11,7 +11,6 @@ Card::Card(int rank, int suit)
 
 Card::~Card()
 {
-
 }
 
 string Card::toString() const

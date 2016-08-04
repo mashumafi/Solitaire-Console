@@ -36,7 +36,7 @@ public:
   unsigned int visible : 1;
 
   Card(int, int);
-  ~Card();
+  virtual ~Card();
   std::string toString(void) const;
   bool getColor(void) const;
   bool isSameColor(Card*) const;
