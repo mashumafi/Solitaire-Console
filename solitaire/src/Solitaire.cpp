@@ -31,13 +31,10 @@ int Solitaire::main()
 
 int Solitaire::move()
 {
-  char buffer[3];
-  cin.getline(buffer, 3);
+  string buffer;
+  getline(cin, buffer);
 
-  bool ret = move(string(buffer));
-  cin.clear();
-
-  return ret;
+  return move(buffer);
 }
 
 int Solitaire::move(string s)
