@@ -1,5 +1,9 @@
 #pragma once
 
-class ConnectN
+#include <Game.hpp>
+
+class ConnectN : public Game
 {
+public:
+  virtual ~ConnectN();
 };

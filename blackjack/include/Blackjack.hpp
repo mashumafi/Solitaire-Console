@@ -1,5 +1,9 @@
 #pragma once
 
-class Blackjack
+#include <Game.hpp>
+
+class Blackjack : public Game
 {
+public:
+  virtual ~Blackjack();
 };

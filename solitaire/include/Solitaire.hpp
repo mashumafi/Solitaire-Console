@@ -30,6 +30,7 @@ private:
   int move(std::vector<Card*>&, std::vector<Card*>&, bool, Rank);
 public:
   Solitaire();
+  virtual ~Solitaire();
   
   int main();
 

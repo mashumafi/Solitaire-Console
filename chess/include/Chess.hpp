@@ -1,5 +1,9 @@
 #pragma once
 
-class Chess
+#include <Game.hpp>
+
+class Chess : public Game
 {
+public:
+  ~Chess();
 };

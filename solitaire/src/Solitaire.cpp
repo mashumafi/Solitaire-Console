@@ -20,6 +20,10 @@ Solitaire::Solitaire()
   }
 }
 
+Solitaire::~Solitaire()
+{
+}
+
 int Solitaire::main()
 {
   do
