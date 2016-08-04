@@ -1,1 +1,1 @@
-subdirs(src)
+add_subdirectory(src)

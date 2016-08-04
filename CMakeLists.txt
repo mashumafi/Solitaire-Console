@@ -11,4 +11,4 @@ set(EXECUTABLE_OUTPUT_PATH ${PROJECT_BINARY_DIR}/bin)
 
 include_directories(${StdCpp_SOURCE_DIR}/common/include)
 
-subdirs(common solitaire src)
+add_subdirectory(common solitaire src)
