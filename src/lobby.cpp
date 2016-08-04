@@ -1,5 +1,7 @@
 #include <Solitaire.hpp>
 
+using namespace std;
+
 int main()
 {
     Solitaire solitaire;

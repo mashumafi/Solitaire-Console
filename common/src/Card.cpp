@@ -1,5 +1,7 @@
 #include <Card.hpp>
 
+using namespace std;
+
 Card::Card(int rank, int suit)
 {
     this->rank = rank;

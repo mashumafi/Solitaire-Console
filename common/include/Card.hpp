@@ -2,8 +2,6 @@
 
 #include <string>
 
-using namespace std;
-
 enum Suit
 {
     Spades = 0,
@@ -39,7 +37,7 @@ public:
 
     Card(int, int);
     ~Card();
-    string toString(void) const;
+    std::string toString(void) const;
     bool getColor(void) const;
     bool isSameColor(Card*) const;
 };

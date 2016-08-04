@@ -2,6 +2,8 @@
 
 #include <stdio.h>
 
+using namespace std;
+
 Solitaire::Solitaire()
 {
     for (int i = 0; i < 7; i++)

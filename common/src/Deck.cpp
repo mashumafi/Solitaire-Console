@@ -1,5 +1,7 @@
 #include <Deck.hpp>
 
+using namespace std;
+
 Deck::Deck() {
     for (int suit = Spades; suit <= Diamonds; suit++)
     {

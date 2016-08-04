@@ -6,9 +6,7 @@
 #include <iostream>
 #include <string>
 
-using namespace std;
-
-class Deck : public vector<Card*>
+class Deck : public std::vector<Card*>
 {
 public:
     Deck();

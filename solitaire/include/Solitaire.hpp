@@ -5,8 +5,7 @@
 #include <stack>
 #include <iostream>
 #include <string>
-
-using namespace std;
+#include <vector>
 
 enum SolitaireState
 {
@@ -23,23 +22,23 @@ class Solitaire
 {
 private:
     Deck deck;
-    vector<Card*> waste;
-    vector<Card*> foundation[4];
-    vector<Card*> tableau[7];
+    std::vector<Card*> waste;
+    std::vector<Card*> foundation[4];
+    std::vector<Card*> tableau[7];
     int draw(void);
-    int move(vector<Card*>&, vector<Card*>&, bool, Rank);
+    int move(std::vector<Card*>&, std::vector<Card*>&, bool, Rank);
 public:
     Solitaire();
 
     int move();
 
-    int move(string);
+    int move(std::string);
     
     int move(int);
 
     int move(int, int);
 
-    string toString() const;
+    std::string toString() const;
 
-    friend ostream& operator<< (ostream &out, Solitaire &solitaire);
+    friend std::ostream& operator<< (std::ostream &out, Solitaire &solitaire);
 };
