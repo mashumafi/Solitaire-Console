@@ -290,7 +290,7 @@ string Solitaire::toString() const
     }
   }
 
-  ret += "\n 00  11      99  AA  BB  CC\n\n 22  33  44  55  66  77  88\n";
+  ret += "  Quit\n 00  11      99  AA  BB  CC    DD\n\n 22  33  44  55  66  77  88\n";
   
   for (unsigned int i = 0; i <= King; i++)
   {
