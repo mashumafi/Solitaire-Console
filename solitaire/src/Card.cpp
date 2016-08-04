@@ -1,4 +1,4 @@
-#include "Card.h"
+#include <Card.hpp>
 
 Card::Card(int rank, int suit)
 {

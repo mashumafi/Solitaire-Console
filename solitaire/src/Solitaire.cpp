@@ -1,4 +1,6 @@
-#include "Solitaire.h"
+#include <Solitaire.hpp>
+
+#include <stdio.h>
 
 Solitaire::Solitaire()
 {
@@ -251,7 +253,7 @@ string Solitaire::toString() const
     string ret;
     
     char deck_size[3];
-    sprintf(deck_size, "%02d", deck.size());
+    sprintf(deck_size, "%02lu", deck.size());
     ret += "[" + string(deck_size) + "]";
 
     if (!waste.empty())
@@ -279,7 +281,7 @@ string Solitaire::toString() const
 
     ret += "\n 00  11      99  AA  BB  CC\n\n 22  33  44  55  66  77  88\n";
     
-    for (int i = 0; i <= King; i++)
+    for (unsigned int i = 0; i <= King; i++)
     {
         for (int j = 0; j < 7; j++)
         {
@@ -301,15 +303,4 @@ string Solitaire::toString() const
 ostream& operator<< (ostream& stream, Solitaire &solitaire)
 {
     return stream << solitaire.toString();
-}
-
-int main()
-{
-    Solitaire solitaire;
-    do
-    {
-        cout << solitaire << endl;
-    } while (solitaire.move() != QUIT);
-
-    return 0;
 }

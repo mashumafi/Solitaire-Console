@@ -1,4 +1,4 @@
-#include "Deck.h"
+#include <Deck.hpp>
 
 Deck::Deck() {
     for (int suit = Spades; suit <= Diamonds; suit++)
