@@ -5,5 +5,5 @@
 class Chess : public Game
 {
 public:
-  ~Chess();
+  virtual ~Chess();
 };
