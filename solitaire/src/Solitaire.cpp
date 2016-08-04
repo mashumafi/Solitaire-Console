@@ -1,6 +1,6 @@
 #include <Solitaire.hpp>
 
-#include <stdio.h>
+#include <sstream>
 
 using namespace std;
 
@@ -261,36 +261,36 @@ int Solitaire::move(vector<Card*>& a, vector<Card*>& b, bool allowMulti, Rank ba
 
 string Solitaire::toString() const
 {
-  string ret;
+  std::stringstream ret;
   
-  char deck_size[3];
-  sprintf(deck_size, "%02lu", deck.size());
-  ret += "[" + string(deck_size) + "]";
+  ret << "[";
+  ret.width(2);
+  ret << deck.size() << "]";
 
   if (!waste.empty())
   {
-    ret += waste.back()->toString();
+    ret << waste.back()->toString();
   }
   else
   {
-    ret += "[  ]";
+    ret << "[  ]";
   }
   
-  ret += "    ";
+  ret << "    ";
 
   for (int i = 0; i < 4; i++)
   {
     if (!foundation[i].empty())
     {
-      ret += foundation[i].back()->toString();
+      ret << foundation[i].back()->toString();
     }
     else
     {
-      ret += "[  ]";
+      ret << "[  ]";
     }
   }
 
-  ret += "  Quit\n 00  11      99  AA  BB  CC    DD\n\n 22  33  44  55  66  77  88\n";
+  ret << "  Quit" << endl << " 00  11      99  AA  BB  CC    DD" << endl << endl << " 22  33  44  55  66  77  88" << endl;
   
   for (unsigned int i = 0; i <= King; i++)
   {
@@ -298,17 +298,17 @@ string Solitaire::toString() const
     {
       if (tableau[j].size() > i)
       {
-        ret += tableau[j].at(i)->toString();
+        ret << tableau[j].at(i)->toString();
       }
       else
       {
-        ret += "    ";
+        ret << "    ";
       }
     }
-    ret += "\n";
+    ret << endl;
   }
-  ret += "----------------------------------------\n";
-  return ret;
+  ret << "----------------------------------------" << endl;
+  return ret.str();
 }
 
 ostream& operator<< (ostream& stream, Solitaire &solitaire)
