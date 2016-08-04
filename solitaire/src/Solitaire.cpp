@@ -62,7 +62,14 @@ int Solitaire::move(int a, int b)
   // value is out of bounds
   if (a > 12 || b > 12 || a < 0 || b < 0)
   {
-    return INVALID_COMMAND;
+    if(a == 13 || b == 13)
+    {
+      return QUIT;
+    }
+    else
+    {
+      return INVALID_COMMAND;
+    }
   }
   // draw from the deck
   if (a == 0)

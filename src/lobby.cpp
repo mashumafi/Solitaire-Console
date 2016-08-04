@@ -8,11 +8,11 @@ int main(int argc, char *argv[])
 {
   Game* game;
   
-  cout << "Pick a game:" << endl
-       << "1. Solitaire" << endl
-       << "*. Quit" << endl;
   int i = 0;
   do {
+    cout << "Pick a game:" << endl
+         << "1. Solitaire" << endl
+         << "*. Quit" << endl;
     cin >> i;
     cin.clear();
     cin.ignore(std::numeric_limits<streamsize>::max(), '\n'); 
