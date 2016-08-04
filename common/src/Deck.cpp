@@ -3,19 +3,19 @@
 using namespace std;
 
 Deck::Deck() {
-    for (int suit = Spades; suit <= Diamonds; suit++)
+  for (int suit = Spades; suit <= Diamonds; suit++)
+  {
+    for (int rank = Ace; rank <= King; rank++)
     {
-        for (int rank = Ace; rank <= King; rank++)
-        {
-            push_back(new Card(rank, suit));
-        }
+      push_back(new Card(rank, suit));
     }
+  }
 }
 
 Deck::~Deck()
 {
-    for (int i = 0; i < size(); i++)
-    {
-        delete at(i);
-    }
+  for (int i = 0; i < size(); i++)
+  {
+    delete at(i);
+  }
 }

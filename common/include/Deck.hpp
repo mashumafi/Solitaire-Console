@@ -9,6 +9,6 @@
 class Deck : public std::vector<Card*>
 {
 public:
-    Deck();
-    ~Deck();
+  Deck();
+  ~Deck();
 };
