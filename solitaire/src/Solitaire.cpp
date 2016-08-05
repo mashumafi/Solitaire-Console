@@ -178,6 +178,7 @@ int Solitaire::move(vector<Card*>& a, vector<Card*>& b, bool allowMulti, Rank ba
 {
   if (allowMulti)
   {
+    // gonna move multiple cards (tableau to tableau)
     Card* B = NULL;
     if (!b.empty())
     {
@@ -193,6 +194,7 @@ int Solitaire::move(vector<Card*>& a, vector<Card*>& b, bool allowMulti, Rank ba
       }
       if (B == NULL || !B->visible)
       {
+        // move tableau on empty tableau or a fliped tableau
         if (A->rank == King)
         {
           int dist = a.size() - i;
@@ -211,6 +213,7 @@ int Solitaire::move(vector<Card*>& a, vector<Card*>& b, bool allowMulti, Rank ba
       }
       else if (!B->isSameColor(A) && B->rank - 1 == A->rank)
       {
+        // move tableau on existing tableau
         int dist = a.size() - i;
         vector<Card*> temp;
         for (int j = 0; j < dist; j++)
@@ -231,8 +234,10 @@ int Solitaire::move(vector<Card*>& a, vector<Card*>& b, bool allowMulti, Rank ba
   else
   {
     Card* A = a.back();
+    // moving 1 card
     if (b.empty() || !b.back()->visible)
     {
+      // is the card allowed on an empty/flipped tableau?
       if (A->rank != base)
       {
         return FAILED_MOVE;
@@ -243,6 +248,7 @@ int Solitaire::move(vector<Card*>& a, vector<Card*>& b, bool allowMulti, Rank ba
       Card* B = b.back();
       if (base == Ace)
       {
+        // can card be moved to foundation
         if (B->suit != A->suit || B->rank != A->rank - 1)
         {
           return FAILED_MOVE;
@@ -250,6 +256,7 @@ int Solitaire::move(vector<Card*>& a, vector<Card*>& b, bool allowMulti, Rank ba
       }
       else if (base == King)
       {
+        // can card be moved to tableau
         if (B->isSameColor(A) || B->rank - 1 != A->rank)
         {
           return FAILED_MOVE;
@@ -260,6 +267,7 @@ int Solitaire::move(vector<Card*>& a, vector<Card*>& b, bool allowMulti, Rank ba
         return INVALID_COMMAND;
       }
     }
+    // move the card since we haven't failed
     b.push_back(A);
     a.pop_back();
     return SUCCESS;
@@ -271,7 +279,7 @@ string Solitaire::toString() const
 {
   std::stringstream ret;
   
-  ret << "[" << setw(2) << deck.size() << "]";
+  ret << "[" << setfill('0') << setw(2) << deck.size() << "]";
 
   if (!waste.empty())
   {

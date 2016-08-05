@@ -19,3 +19,11 @@ Deck::~Deck()
     delete at(i);
   }
 }
+
+void Deck::shuffle()
+{
+  for(int i = 0; i < size(); i++)
+  {
+    
+  }
+}

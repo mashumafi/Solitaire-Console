@@ -11,4 +11,5 @@ class Deck : public std::vector<Card*>
 public:
   Deck();
   virtual ~Deck();
+  void shuffle();
 };
