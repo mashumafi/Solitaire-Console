@@ -2,6 +2,7 @@
 
 #include <sstream>
 #include <iomanip>
+#include <algorithm>
 
 using namespace std;
 
@@ -280,6 +281,7 @@ int Solitaire::move(vector<Card*>& a, vector<Card*>& b, bool allowMulti, Rank ba
 void Solitaire::addScore(ScoreModifier scoreModifier)
 {
   m_score += scoreModifier;
+  m_score = max(0, m_score);
 }
 
 string Solitaire::toString() const
