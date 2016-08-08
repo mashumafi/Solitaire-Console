@@ -11,6 +11,7 @@ Deck::Deck() {
       push_back(new Card(rank, suit));
     }
   }
+  shuffle();
 }
 
 Deck::~Deck()
@@ -26,9 +27,9 @@ void Deck::shuffle()
   Random r;
   for(unsigned int i = 0; i < size(); i++)
   {
-    Card* temp = at(i);
-    int j = r.nextInt(i, size() - i);
-    assign(i, at(j));
-    assign(j, temp);
+    Card* temp = (*this)[i];
+    int j = r.nextInt(0, size() - i - 1);
+    (*this)[i] = (*this)[i + j];
+    (*this)[i + j] = temp;
   }
 }

@@ -25,7 +25,8 @@ enum Rank
   Jack = 10,
   Queen = 11,
   King = 12,
-  Joker = 13
+  Joker = 13,
+  Blank = 14
 };
 
 class Card

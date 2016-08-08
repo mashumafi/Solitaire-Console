@@ -14,7 +14,6 @@ int Random::nextInt(int min, int max)
 {
   std::uniform_int_distribution<int> distribution(min, max);
   return distribution(*this);
-  return 0;
 }
 
 double Random::nextDouble()
@@ -31,5 +30,4 @@ double Random::nextDouble(double min, double max)
 {
   std::uniform_real_distribution<double> distribution(min, max);
   return distribution(*this);
-  return 0;
 }
