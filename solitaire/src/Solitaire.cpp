@@ -35,14 +35,14 @@ int Solitaire::main()
   return 0;
 }
 
-int Solitaire::move()
+SolitaireState Solitaire::move()
 {
   string line;
   getline(cin, line);
   return move(line);
 }
 
-int Solitaire::move(string s)
+SolitaireState Solitaire::move(string s)
 {
   try
   {
@@ -50,16 +50,16 @@ int Solitaire::move(string s)
   }
   catch (const std::exception& e)
   {
-    return false;
+    return INVALID_COMMAND;
   }
 }
 
-int Solitaire::move(int a)
+SolitaireState Solitaire::move(int a)
 {
   return a < 16 ? move(a, a) : move(a / 16, a % 16);
 }
 
-int Solitaire::move(int a, int b)
+SolitaireState Solitaire::move(int a, int b)
 {
   // value is out of bounds
   if (a > 12 || b > 12 || a < 0 || b < 0)
@@ -119,7 +119,12 @@ int Solitaire::move(int a, int b)
       // to foundation
       if (9 <= b && b <= 12)
       {
-        return move(waste, foundation[b - 9], false, Ace);
+        SolitaireState ss = move(waste, foundation[b - 9], false, Ace);
+        if(ss == SUCCESS)
+        {
+          addScore(ADDED_TO_FOUNDATION);
+        }
+        return ss;
       }
     }
     // move from tableau
@@ -133,7 +138,12 @@ int Solitaire::move(int a, int b)
       // to foundation
       if (9 <= b && b <= 12)
       {
-        return move(tableau[a - 2], foundation[b - 9], false, Ace);
+        SolitaireState ss = move(tableau[a - 2], foundation[b - 9], false, Ace);
+        if(ss == SUCCESS)
+        {
+          addScore(ADDED_TO_FOUNDATION);
+        }
+        return ss;
       }
       return FAILED_MOVE;
     }
@@ -143,7 +153,12 @@ int Solitaire::move(int a, int b)
       // to tableau
       if (2 <= b && b <= 8)
       {
-        return move(foundation[a - 2], tableau[b - 9], false, King);
+        SolitaireState ss = move(foundation[a - 2], tableau[b - 9], false, King);
+        if(ss == SUCCESS)
+        {
+          addScore(REMOVED_FROM_FOUNDATION);
+        }
+        return ss;
       }
       // to foundation
       if (9 <= b && b <= 12)
@@ -156,7 +171,7 @@ int Solitaire::move(int a, int b)
   return UNKNOWN;
 }
 
-int Solitaire::draw()
+SolitaireState Solitaire::draw()
 {
   if (deck.size() == 0)
   {
@@ -177,7 +192,7 @@ int Solitaire::draw()
   return SUCCESS;
 }
 
-int Solitaire::move(vector<Card*>& a, vector<Card*>& b, bool allowMulti, Rank base)
+SolitaireState Solitaire::move(vector<Card*>& a, vector<Card*>& b, bool allowMulti, Rank base)
 {
   if (allowMulti)
   {
@@ -275,7 +290,7 @@ int Solitaire::move(vector<Card*>& a, vector<Card*>& b, bool allowMulti, Rank ba
     a.pop_back();
     return SUCCESS;
   }
-  return 0;
+  return UNKNOWN;
 }
 
 void Solitaire::addScore(ScoreModifier scoreModifier)

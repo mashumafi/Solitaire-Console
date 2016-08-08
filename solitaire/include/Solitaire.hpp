@@ -33,8 +33,8 @@ private:
   std::vector<Card*> waste;
   std::vector<Card*> foundation[4];
   std::vector<Card*> tableau[7];
-  int draw(void);
-  int move(std::vector<Card*>&, std::vector<Card*>&, bool, Rank);
+  SolitaireState draw(void);
+  SolitaireState move(std::vector<Card*>&, std::vector<Card*>&, bool, Rank);
   int m_score;
   void addScore(ScoreModifier);
 public:
@@ -43,13 +43,13 @@ public:
   
   int main();
 
-  int move();
+  SolitaireState move();
 
-  int move(std::string);
+  SolitaireState move(std::string);
   
-  int move(int);
+  SolitaireState move(int);
 
-  int move(int, int);
+  SolitaireState move(int, int);
 
   std::string toString() const;
 
