@@ -24,11 +24,11 @@ Deck::~Deck()
 void Deck::shuffle()
 {
   Random r;
-  for(int i = 0; i < size(); i++)
+  for(unsigned int i = 0; i < size(); i++)
   {
     Card* temp = at(i);
     int j = r.nextInt(i, size() - i);
-    at(i) = at(j);
-    at(j) = temp;
+    assign(i, at(j));
+    assign(j, temp);
   }
 }
