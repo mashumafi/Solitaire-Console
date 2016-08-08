@@ -41,6 +41,6 @@ public:
   std::string toString(void) const;
   bool getColor(void) const;
   bool isSameColor(Card*) const;
-  bool isRed(void);
-  bool isBlack(void);
+  bool isRed(void) const;
+  bool isBlack(void) const;
 };
