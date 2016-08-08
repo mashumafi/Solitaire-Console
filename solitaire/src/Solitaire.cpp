@@ -168,6 +168,7 @@ int Solitaire::draw()
       deck.push_back(waste.back());
       waste.pop_back();
     }
+    addScore(DECK_FLIPPED);
   }
   deck.back()->visible = true;
   waste.push_back(deck.back());
@@ -276,6 +277,11 @@ int Solitaire::move(vector<Card*>& a, vector<Card*>& b, bool allowMulti, Rank ba
   return 0;
 }
 
+void Solitaire::addScore(ScoreModifier scoreModifier)
+{
+  m_score += scoreModifier;
+}
+
 string Solitaire::toString() const
 {
   std::stringstream ret;
@@ -305,7 +311,7 @@ string Solitaire::toString() const
     }
   }
 
-  ret << "  Quit" << endl << " 00  11      99  AA  BB  CC    DD" << endl << endl << " 22  33  44  55  66  77  88" << endl;
+  ret << "  Quit  Score" << endl << " 00  11      99  AA  BB  CC    DD   " << m_score << endl << endl << " 22  33  44  55  66  77  88" << endl;
   
   for (unsigned int i = 0; i <= King; i++)
   {

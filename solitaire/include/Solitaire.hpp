@@ -8,6 +8,13 @@
 #include <string>
 #include <vector>
 
+enum ScoreModifier
+{
+  DECK_FLIPPED = -30,
+  ADDED_TO_FOUNDATION = 30,
+  REMOVED_FROM_FOUNDATION = -25
+};
+
 enum SolitaireState
 {
   SUCCESS,
@@ -29,6 +36,7 @@ private:
   int draw(void);
   int move(std::vector<Card*>&, std::vector<Card*>&, bool, Rank);
   int m_score;
+  void addScore(ScoreModifier);
 public:
   Solitaire();
   virtual ~Solitaire();
