@@ -28,6 +28,7 @@ private:
   std::vector<Card*> tableau[7];
   int draw(void);
   int move(std::vector<Card*>&, std::vector<Card*>&, bool, Rank);
+  int m_score;
 public:
   Solitaire();
   virtual ~Solitaire();

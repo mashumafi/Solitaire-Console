@@ -5,7 +5,7 @@
 
 using namespace std;
 
-Solitaire::Solitaire()
+Solitaire::Solitaire() : m_score(0)
 {
   for (int i = 0; i < 7; i++)
   {
@@ -80,18 +80,19 @@ int Solitaire::move(int a, int b)
   // only one value passed
   if (a == b)
   {
-    // auto place on tableau
-    if (a == 1)
-    {
-      return FAILED_MOVE;
-    }
     // put card from tableau into foundation
-    if (a <= a && a <= 8)
+    if (1 <= a && a <= 8)
     {
-      if (!tableau[a - 2].back()->visible)
+      // flip bottom card
+      if (a >= 2 && !tableau[a - 2].back()->visible)
       {
         tableau[a - 2].back()->visible = true;
       }
+      // try putting card onto foundation
+      move(a, 9);
+      move(a, 10);
+      move(a, 11);
+      move(a, 12);
       return FAILED_MOVE;
     }
     // automatically fill foundations
