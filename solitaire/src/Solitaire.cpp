@@ -90,11 +90,7 @@ SolitaireState Solitaire::move(int a, int b)
         tableau[a - 2].back()->visible = true;
       }
       // try putting card onto foundation
-      move(a, 9);
-      move(a, 10);
-      move(a, 11);
-      move(a, 12);
-      return FAILED_MOVE;
+      return move(a, 9) == SUCCESS || move(a, 10) == SUCCESS || move(a, 11) == SUCCESS || move(a, 12) ? SUCCESS : FAILED_MOVE;
     }
     // automatically fill foundations
     if (9 <= a && a <= 12)
@@ -104,13 +100,13 @@ SolitaireState Solitaire::move(int a, int b)
       {
         repeat = false;
         
-        for(unsigned int j = 0; i < foundation.count(); i++)
+        for(unsigned int j = 0; j < 4; j++)
         {
           if(move(1, j + 9) == SUCCESS)
           {
             repeat = true;
           }
-          for(unsigned int i = 0; i < tableau.count(); i++)
+          for(unsigned int i = 0; i < 7; i++)
           {
             if(move(i + 2, j + 9) == SUCCESS)
             {
