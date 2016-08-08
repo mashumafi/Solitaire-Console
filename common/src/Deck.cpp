@@ -1,4 +1,5 @@
 #include <Deck.hpp>
+#include <Random.hpp>
 
 using namespace std;
 
@@ -22,8 +23,12 @@ Deck::~Deck()
 
 void Deck::shuffle()
 {
+  Random r;
   for(int i = 0; i < size(); i++)
   {
-    
+    Card* temp = at(i);
+    int j = r.nextInt(i, size() - i);
+    at(i) = at(j);
+    at(j) = temp;
   }
 }
