@@ -15,7 +15,7 @@ Card::~Card()
 
 string Card::toString() const
 {
-  static const string RANK[] = { "A", "2",  "3",  "4",  "5",  "6",  "7",  "8",  "9",  "T",  "J",  "Q",  "K"};
+  static const string RANK[] = { "A", "2",  "3",  "4",  "5",  "6",  "7",  "8",  "9",  "T",  "J",  "Q",  "K", " ", " "};
   static const string SUIT[] = { "S", "H",  "C",  "D" };
   if (visible)
     return "[" + RANK[rank] + SUIT[suit] + "]";
@@ -31,4 +31,14 @@ bool Card::getColor() const
 bool Card::isSameColor(Card* card) const
 {
   return card->getColor() == getColor();
+}
+
+bool Card::isRed() const
+{
+  return getColor() == 1;
+}
+
+bool Card::isBlack() const
+{
+  return getColor() == 0;
 }
