@@ -85,7 +85,7 @@ SolitaireState Solitaire::move(int a, int b)
     if (1 <= a && a <= 8)
     {
       // flip bottom card
-      if (a >= 2 && !tableau[a - 2].back()->visible)
+      if (a >= 2 && !tableau[a - 2].empty() && !tableau[a - 2].back()->visible)
       {
         tableau[a - 2].back()->visible = true;
       }
@@ -169,7 +169,7 @@ SolitaireState Solitaire::move(int a, int b)
       // to tableau
       if (2 <= b && b <= 8)
       {
-        SolitaireState ss = move(foundation[a - 2], tableau[b - 9], false, King);
+        SolitaireState ss = move(foundation[a - 9], tableau[b - 2], false, King);
         if(ss == SUCCESS)
         {
           addScore(REMOVED_FROM_FOUNDATION);
@@ -267,44 +267,51 @@ SolitaireState Solitaire::move(vector<Card*>& a, vector<Card*>& b, bool allowMul
   }
   else
   {
-    Card* A = a.back();
-    // moving 1 card
-    if (b.empty() || !b.back()->visible)
+    if(!a.empty())
     {
-      // is the card allowed on an empty/flipped tableau?
-      if (A->rank != base)
+      Card* A = a.back();
+      // moving 1 card
+      if (b.empty() || !b.back()->visible)
       {
-        return FAILED_MOVE;
-      }
-    }
-    else
-    {
-      Card* B = b.back();
-      if (base == Ace)
-      {
-        // can card be moved to foundation
-        if (B->suit != A->suit || B->rank != A->rank - 1)
-        {
-          return FAILED_MOVE;
-        }
-      }
-      else if (base == King)
-      {
-        // can card be moved to tableau
-        if (B->isSameColor(A) || B->rank - 1 != A->rank)
+        // is the card allowed on an empty/flipped tableau?
+        if (A->rank != base)
         {
           return FAILED_MOVE;
         }
       }
       else
       {
-        return INVALID_COMMAND;
+        Card* B = b.back();
+        if (base == Ace)
+        {
+          // can card be moved to foundation
+          if (B->suit != A->suit || B->rank != A->rank - 1)
+          {
+            return FAILED_MOVE;
+          }
+        }
+        else if (base == King)
+        {
+          // can card be moved to tableau
+          if (B->isSameColor(A) || B->rank - 1 != A->rank)
+          {
+            return FAILED_MOVE;
+          }
+        }
+        else
+        {
+          return INVALID_COMMAND;
+        }
       }
+      // move the card since we haven't failed
+      b.push_back(A);
+      a.pop_back();
+      return SUCCESS;
     }
-    // move the card since we haven't failed
-    b.push_back(A);
-    a.pop_back();
-    return SUCCESS;
+    else
+    {
+      return FAILED_MOVE;
+    }
   }
   return UNKNOWN;
 }
