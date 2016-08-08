@@ -99,6 +99,26 @@ SolitaireState Solitaire::move(int a, int b)
     // automatically fill foundations
     if (9 <= a && a <= 12)
     {
+      bool repeat;
+      do
+      {
+        repeat = false;
+        
+        for(unsigned int j = 0; i < foundation.count(); i++)
+        {
+          if(move(1, j + 9) == SUCCESS)
+          {
+            repeat = true;
+          }
+          for(unsigned int i = 0; i < tableau.count(); i++)
+          {
+            if(move(i + 2, j + 9) == SUCCESS)
+            {
+              repeat = true;
+            }
+          }
+        }
+      } while(repeat);
       return FAILED_MOVE;
     }
   }
