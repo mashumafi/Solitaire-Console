@@ -16,6 +16,7 @@ int main(int argc, char *argv[])
     cin >> i;
     cin.clear();
     cin.ignore(std::numeric_limits<streamsize>::max(), '\n'); 
+    game = nullptr;
     switch(i)
     {
       case 1:
