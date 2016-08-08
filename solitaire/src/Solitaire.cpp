@@ -88,6 +88,7 @@ SolitaireState Solitaire::move(int a, int b)
       if (a >= 2 && !tableau[a - 2].empty() && !tableau[a - 2].back()->visible)
       {
         tableau[a - 2].back()->visible = true;
+        return SUCCESS;
       }
       // try putting card onto foundation
       return move(a, 9) == SUCCESS || move(a, 10) == SUCCESS || move(a, 11) == SUCCESS || move(a, 12) ? SUCCESS : FAILED_MOVE;
