@@ -6,7 +6,7 @@ using namespace std;
 
 int main(int argc, char *argv[])
 {
-  Game* game;
+  Main* game;
   
   int i = 0;
   do {

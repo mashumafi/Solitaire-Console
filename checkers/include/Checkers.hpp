@@ -1,8 +1,8 @@
 #pragma once
 
-#include <Game.hpp>
+#include <Main.hpp>
 
-class Checkers : public Game
+class Checkers : public Main
 {
 public:
   virtual ~Checkers();

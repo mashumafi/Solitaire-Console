@@ -1,8 +1,8 @@
 #pragma once
 
-#include <Game.hpp>
+#include <Main.hpp>
 
-class ConnectN : public Game
+class ConnectN : public Main
 {
 public:
   virtual ~ConnectN();

@@ -1,7 +1,7 @@
 #pragma once
 
 #include <Deck.hpp>
-#include <Game.hpp>
+#include <Main.hpp>
 
 #include <stack>
 #include <iostream>
@@ -26,7 +26,7 @@ enum SolitaireState
   UNKNOWN
 };
 
-class Solitaire : public Game
+class Solitaire : public Main
 {
 private:
   Deck deck;

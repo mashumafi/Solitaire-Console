@@ -1,12 +1,12 @@
-#include <Game.hpp>
+#include <Main.hpp>
 
 using namespace std;
 
-Game::~Game()
+Main::~Main()
 {
 }
 
-int Game::main(int argc, char *argv[])
+int Main::main(int argc, char *argv[])
 {
   vector<string> args;
   for(int i = 0; i < argc; i++)
@@ -16,12 +16,12 @@ int Game::main(int argc, char *argv[])
   return main(args);
 }
 
-int Game::main(const vector<string>&)
+int Main::main(const vector<string>&)
 {
   return main();
 }
 
-int Game::main()
+int Main::main()
 {
   return 0;
 }

@@ -1,8 +1,8 @@
 #pragma once
 
-#include <Game.hpp>
+#include <Main.hpp>
 
-class TicTacToe : public Game
+class TicTacToe : public Main
 {
 public:
   virtual ~TicTacToe();
