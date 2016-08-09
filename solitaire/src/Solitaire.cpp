@@ -46,7 +46,7 @@ SolitaireState Solitaire::move(string s)
 {
   try
   {
-    return move(stoi(s, NULL, 16));
+    return move(stoi(s, nullptr, 16));
   }
   catch (const std::exception& e)
   {
@@ -214,7 +214,7 @@ SolitaireState Solitaire::move(vector<Card*>& a, vector<Card*>& b, bool allowMul
   if (allowMulti)
   {
     // gonna move multiple cards (tableau to tableau)
-    Card* B = NULL;
+    Card* B = nullptr;
     if (!b.empty())
     {
       B = b.back();
@@ -227,7 +227,7 @@ SolitaireState Solitaire::move(vector<Card*>& a, vector<Card*>& b, bool allowMul
       {
         return FAILED_MOVE;
       }
-      if (B == NULL || !B->visible)
+      if (B == nullptr || !B->visible)
       {
         // move tableau on empty tableau or a fliped tableau
         if (A->rank == King)
