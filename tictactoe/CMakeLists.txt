@@ -1,2 +1,4 @@
 project(tictactoe)
-add_subdirectory(src)
+add_modules(source TicTacToe)
+add_library(tictactoe ${source})
+target_link_libraries(tictactoe common)

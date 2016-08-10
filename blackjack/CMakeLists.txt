@@ -1,2 +1,4 @@
 project(blackjack)
-add_subdirectory(src)
+add_modules(source Blackjack)
+add_library(blackjack ${source})
+target_link_libraries(blackjack common)

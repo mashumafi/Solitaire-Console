@@ -1,2 +1,4 @@
 project(toetactic)
-add_subdirectory(src)
+add_modules(source ToeTacTic)
+add_library(toetactic ${source})
+target_link_libraries(toetactic common)

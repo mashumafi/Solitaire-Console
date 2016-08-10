@@ -1,2 +1,3 @@
 project(common)
-add_subdirectory(src)
+add_modules(source Card Deck Grid Main Piece Hand Player Random)
+add_library(common ${source})

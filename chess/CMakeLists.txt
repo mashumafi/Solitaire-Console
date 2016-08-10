@@ -1,2 +1,4 @@
 project(chess)
-add_subdirectory(src)
+add_modules(source Chess)
+add_library(chess ${source})
+target_link_libraries(chess common)

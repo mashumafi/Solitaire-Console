@@ -1,5 +1,17 @@
 cmake_minimum_required(VERSION 2.8)
 
+function(add_modules source)
+  include_directories(include)
+  list(LENGTH ARGN len)
+  math(EXPR len ${len}-1)
+  foreach(val RANGE ${len})
+    list(GET ARGN ${val} module)
+    list(APPEND modules src/${module}.cpp)
+    list(APPEND modules include/${module}.hpp)
+  endforeach()
+  set(${source} ${modules} PARENT_SCOPE)
+endfunction(add_modules)
+
 if(UNIX)
     SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -std=gnu++0x")
 endif()
