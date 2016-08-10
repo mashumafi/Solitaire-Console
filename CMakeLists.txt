@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 2.8)
 
 function(add_modules source)
   if(UNIX)
-    SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -std=gnu++0x")
+    SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -std=gnu++0x" PARENT_SCOPE)
   endif()
   include_directories(include)
   include_directories(${common_SOURCE_DIR}/include)
