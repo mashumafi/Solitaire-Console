@@ -29,6 +29,12 @@ enum Rank
   Blank = 14
 };
 
+enum Color : bool
+{
+  BLACK = true,
+  RED = false
+};
+
 class Card
 {
 public:
@@ -39,7 +45,7 @@ public:
   Card(int, int);
   virtual ~Card();
   std::string toString(void) const;
-  bool getColor(void) const;
+  Color getColor(void) const;
   bool isSameColor(Card*) const;
   bool isRed(void) const;
   bool isBlack(void) const;

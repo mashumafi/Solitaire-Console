@@ -32,9 +32,9 @@ string Card::toString() const
     return "[  ]";
 }
 
-bool Card::getColor() const
+Color Card::getColor() const
 {
-  return suit % 2;
+  return static_cast<Color>(suit % 2 == 0);
 }
 
 bool Card::isSameColor(Card* card) const
@@ -44,10 +44,10 @@ bool Card::isSameColor(Card* card) const
 
 bool Card::isRed() const
 {
-  return getColor() == 1;
+  return getColor() == RED;
 }
 
 bool Card::isBlack() const
 {
-  return getColor() == 0;
+  return getColor() == BLACK;
 }

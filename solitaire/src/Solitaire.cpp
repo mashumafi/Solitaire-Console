@@ -48,7 +48,7 @@ SolitaireState Solitaire::move(string s)
   {
     return move(stoi(s, nullptr, 16));
   }
-  catch (const std::exception& e)
+  catch (const std::exception&)
   {
     return INVALID_COMMAND;
   }
