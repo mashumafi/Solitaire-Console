@@ -1,7 +1,10 @@
 #pragma once
 
-class Archive
+#include <Main.hpp>
+
+class Archive : public Main
 {
 public:
   virtual ~Archive();
+  virtual int main(const std::vector<std::string>&) override;
 };

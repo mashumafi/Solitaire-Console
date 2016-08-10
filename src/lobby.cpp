@@ -1,3 +1,4 @@
+#include <Archive.hpp>
 #include <Solitaire.hpp>
 
 #include <limits>
@@ -12,6 +13,7 @@ int main(int argc, char *argv[])
   do {
     cout << "Pick a game:" << endl
          << "1. Solitaire" << endl
+         << "2. Archive" << endl
          << "*. Quit" << endl;
     cin >> i;
     cin.clear();
@@ -21,6 +23,9 @@ int main(int argc, char *argv[])
     {
       case 1:
         game = new Solitaire;
+        break;
+      case 2:
+        game = new Archive;
         break;
       default:
         i = 0;
