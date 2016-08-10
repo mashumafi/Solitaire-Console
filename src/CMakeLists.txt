@@ -1,3 +1,4 @@
+include_directories(${common_SOURCE_DIR}/include)
 include_directories(${archive_SOURCE_DIR}/include)
 include_directories(${solitaire_SOURCE_DIR}/include)
 add_executable(lobby lobby.cpp)
