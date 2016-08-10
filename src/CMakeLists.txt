@@ -1,4 +1,4 @@
-include_directories(${StdCpp_SOURCE_DIR}/archive/include)
-include_directories(${StdCpp_SOURCE_DIR}/solitaire/include)
+include_directories(${archive_SOURCE_DIR}/include)
+include_directories(${solitaire_SOURCE_DIR}/include)
 add_executable(lobby lobby.cpp)
 target_link_libraries(lobby archive blackjack checkers chess connectn solitaire tictactoe toetactic)

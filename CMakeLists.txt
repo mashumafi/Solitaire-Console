@@ -9,8 +9,8 @@ project(TerminalCPP)
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/lib)
 set(EXECUTABLE_OUTPUT_PATH ${PROJECT_BINARY_DIR}/bin)
 
-include_directories(${StdCpp_SOURCE_DIR})
-include_directories(${StdCpp_SOURCE_DIR}/common/include)
+#include_directories(${CMAKE_SOURCE_DIR})
+include_directories(${common_SOURCE_DIR}/include)
 
 add_subdirectory(common)
 add_subdirectory(archive)

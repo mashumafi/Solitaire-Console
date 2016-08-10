@@ -1,4 +1,4 @@
-include_directories(${StdCpp_SOURCE_DIR}/sqlite/include)
+include_directories(${sqlite_SOURCE_DIR}/include)
 add_library(sqlite sqlite3.c)
 add_executable(sqlite3 shell.c)
 target_link_libraries(sqlite3 sqlite)

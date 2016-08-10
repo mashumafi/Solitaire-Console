@@ -1,3 +1,3 @@
-include_directories(${StdCpp_SOURCE_DIR}/toetactic/include)
+include_directories(${toetactic_SOURCE_DIR}/include)
 add_library(toetactic ToeTacTic.cpp)
 target_link_libraries(toetactic common)
