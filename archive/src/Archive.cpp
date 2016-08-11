@@ -17,20 +17,25 @@ Archive::~Archive()
 
 int Archive::main(const vector<string>&)
 {
-  fstream myfile;
-  myfile.open("example.txt", ios::binary | ios::in);
+  fstream readonly;
+  readonly.open("example.ar", ios::binary | ios::in);
   Header header;
-  std::ofstream ofs("filename");
 
-  if(myfile.is_open())
+  if(readonly.is_open())
   {
-    boost::archive::binary_oarchive oa(ofs);
-    oa << header;
-    myfile.close();
+    boost::archive::binary_iarchive ia(readonly);
+    ia >> header;
+    std::cout << header.root << std::endl;
+    readonly.close();
   }
   else
   {
-    cout << "File not found." << endl;
+    readonly.close();
+    readonly.open("example.ar", ios::binary | ios::out);
+    boost::archive::binary_oarchive oa(readonly);
+    header.root = 50;
+    oa << header;
+    readonly.close();
   }
  
   return 0;

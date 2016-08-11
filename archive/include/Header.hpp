@@ -8,19 +8,19 @@
 class Header
 {
   friend class boost::serialization::access;
-  std::string name;
   template<class Archive>
   void save(Archive& ar, const unsigned int version) const
   {
-    ar & name;
+    ar & root;
   }
   template<class Archive>
   void load(Archive& ar, const unsigned int version)
   {
-    ar & name;
+    ar & root;
   }
   BOOST_SERIALIZATION_SPLIT_MEMBER()
 public:
+  int root;
   Header();
 };
 
