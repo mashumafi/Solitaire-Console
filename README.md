@@ -1,9 +1,11 @@
-Projects made using only the Standard C++ libraries.
-Most are terminal based games.
+#Projects made using only the Standard C++ libraries.
+##Most are terminal based games.
 
 In progress:
-- fp
-- Archive
+
+* fp
+* Archive
 
 Completed:
-- Solitaire
+
+* Solitaire
