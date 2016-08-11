@@ -4,8 +4,9 @@
 In progress:
 
 * fp
-* Archive
+* archive
+* irc
 
 Completed:
 
-* Solitaire
+* solitaire
