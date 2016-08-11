@@ -1,5 +1,4 @@
-#ifndef FILE_HPP
-#define FILE_HPP
+#pragma once
 
 #include <boost/serialization/list.hpp>
 #include <boost/serialization/string.hpp>
@@ -20,5 +19,3 @@ public:
 };
 
 BOOST_CLASS_VERSION(File, 0)
-
-#endif

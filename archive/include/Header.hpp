@@ -1,5 +1,4 @@
-#ifndef HEADER_HPP
-#define HEADER_HPP
+#pragma once
 
 #include <boost/serialization/list.hpp>
 #include <boost/serialization/string.hpp>
@@ -20,5 +19,3 @@ public:
 };
 
 BOOST_CLASS_VERSION(Header, 0)
-
-#endif

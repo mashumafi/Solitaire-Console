@@ -1,5 +1,4 @@
-#ifndef DIRECTORY_HPP
-#define DIRECTORY_HPP
+#pragma once
 
 #include <boost/serialization/list.hpp>
 #include <boost/serialization/string.hpp>
@@ -20,5 +19,3 @@ public:
 };
 
 BOOST_CLASS_VERSION(Directory, 0)
-
-#endif

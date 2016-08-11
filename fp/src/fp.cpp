@@ -1,6 +1,5 @@
 #include <fp.hpp>
 
-#include <boost/phoenix/phoenix.hpp>
 #include <vector>
 #include <algorithm>
 #include <iostream>
@@ -24,5 +23,9 @@ int fp::main()
     ];
   isodd(add(1, 2), print);
   std::cout << _1 << std::endl;
+
+  boost::phoenix::function<is_odd_impl> is_odd;
+  std::cout << std::count_if(v.begin(), v.end(), is_odd(arg1)) << '\n';
+
   return 0;
 }
