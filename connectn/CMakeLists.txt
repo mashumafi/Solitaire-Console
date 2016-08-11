@@ -1,4 +1,4 @@
-project(connectn)
+PROJECT(connectn)
 add_modules(source ConnectN)
-add_library(connectn ${source})
-target_link_libraries(connectn common)
+ADD_LIBRARY(connectn ${source})
+TARGET_LINK_LIBRARIES(connectn common)

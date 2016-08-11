@@ -1,4 +1,4 @@
-project(blackjack)
+PROJECT(blackjack)
 add_modules(source Blackjack)
-add_library(blackjack ${source})
-target_link_libraries(blackjack common)
+ADD_LIBRARY(blackjack ${source})
+TARGET_LINK_LIBRARIES(blackjack common)

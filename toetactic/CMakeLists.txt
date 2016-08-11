@@ -1,4 +1,4 @@
-project(toetactic)
+PROJECT(toetactic)
 add_modules(source ToeTacTic)
-add_library(toetactic ${source})
-target_link_libraries(toetactic common)
+ADD_LIBRARY(toetactic ${source})
+TARGET_LINK_LIBRARIES(toetactic common)

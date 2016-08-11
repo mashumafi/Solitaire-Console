@@ -1,4 +1,4 @@
-project(checkers)
+PROJECT(checkers)
 add_modules(source Checkers)
-add_library(checkers ${source})
-target_link_libraries(checkers common)
+ADD_LIBRARY(checkers ${source})
+TARGET_LINK_LIBRARIES(checkers common)

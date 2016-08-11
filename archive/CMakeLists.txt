@@ -1,4 +1,4 @@
-project(archive)
+PROJECT(archive)
 add_modules(source Archive Directory File Header)
-add_library(archive ${source})
-target_link_libraries(archive common ${Boost_LIBRARIES})
+ADD_LIBRARY(archive ${source})
+TARGET_LINK_LIBRARIES(archive common ${Boost_LIBRARIES})

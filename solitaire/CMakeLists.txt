@@ -1,4 +1,4 @@
-project(solitaire)
+PROJECT(solitaire)
 add_modules(source Solitaire)
-add_library(solitaire ${source})
-target_link_libraries(solitaire common)
+ADD_LIBRARY(solitaire ${source})
+TARGET_LINK_LIBRARIES(solitaire common)

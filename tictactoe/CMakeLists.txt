@@ -1,4 +1,4 @@
-project(tictactoe)
+PROJECT(tictactoe)
 add_modules(source TicTacToe)
-add_library(tictactoe ${source})
-target_link_libraries(tictactoe common)
+ADD_LIBRARY(tictactoe ${source})
+TARGET_LINK_LIBRARIES(tictactoe common)

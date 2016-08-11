@@ -1,5 +1,4 @@
-project(fp)
+PROJECT(fp)
 add_modules(source fp)
-add_library(fp ${source})
-target_link_libraries(fp common)
-
+ADD_LIBRARY(fp ${source})
+TARGET_LINK_LIBRARIES(fp common)

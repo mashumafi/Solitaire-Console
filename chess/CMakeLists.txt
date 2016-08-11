@@ -1,4 +1,4 @@
-project(chess)
+PROJECT(chess)
 add_modules(source Chess)
-add_library(chess ${source})
-target_link_libraries(chess common)
+ADD_LIBRARY(chess ${source})
+TARGET_LINK_LIBRARIES(chess common)

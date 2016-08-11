@@ -1,4 +1,4 @@
-project(irc)
+PROJECT(irc)
 add_modules(source IRCClient)
-add_library(irc ${source})
-target_link_libraries(irc common ${Boost_LIBRARIES})
+ADD_LIBRARY(irc ${source})
+TARGET_LINK_LIBRARIES(irc common ${Boost_LIBRARIES})
