@@ -12,6 +12,7 @@
 #include <boost/algorithm/string.hpp>
 
 using namespace boost::assign;
+using boost::asio::ip::tcp;
 
 IRCClient::IRCClient(const std::string& host, const std::string& port, const std::string& nick, const std::string& pass) : m_nick(nick), m_pass(pass)
 {

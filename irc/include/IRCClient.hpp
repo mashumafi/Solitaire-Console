@@ -14,8 +14,6 @@
 #include <boost/algorithm/string.hpp>
 #include <boost/format.hpp>
 
-using boost::asio::ip::tcp;
-
 enum Reply
 {
   RPL_WELCOME           = 1,
@@ -390,9 +388,9 @@ protected:
   virtual void read(const Message& msg);
   
 private:
-  void connect(tcp::resolver::iterator endpoint_iterator);
+  void connect(boost::asio::ip::tcp::resolver::iterator endpoint_iterator);
   void read();
-  tcp::socket* s;
+  boost::asio::ip::tcp::socket* s;
   boost::asio::io_service io_service;
   boost::asio::streambuf response;
   std::string m_nick;
