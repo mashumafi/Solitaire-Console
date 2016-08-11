@@ -23,5 +23,6 @@ int fp::main()
       bind(arg2, arg1)
     ];
   isodd(add(1, 2), print);
+  std::cout << _1 << std::endl;
   return 0;
 }
