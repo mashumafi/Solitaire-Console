@@ -1,7 +1,7 @@
-cmake_minimum_required(VERSION 2.8)
+CMAKE_MINIMUM_REQUIRED(VERSION 2.8)
 
-project(Terminal)
-set(CMAKE_MODULE_PATH ${Terminal_SOURCE_DIR}/cmake_modules)
+PROJECT(Terminal)
+SET(CMAKE_MODULE_PATH ${Terminal_SOURCE_DIR}/cmake_modules)
 
 IF(UNIX)
   SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -std=gnu++0x")
@@ -21,7 +21,7 @@ ENDIF()
 SET(Boost_USE_MULTITHREADED   ON)
 SET(Boost_USE_STATIC_RUNTIME OFF)
 
-FIND_PACKAGE(Boost COMPONENTS system thread regex filesystem serialization REQUIRED)
+FIND_PACKAGE(Boost 1.54.0 COMPONENTS system thread regex filesystem serialization REQUIRED)
 INCLUDE_DIRECTORIES(${Boost_INCLUDE_DIRS})
 LINK_DIRECTORIES(${Boost_LIBRARY_DIRS})
 
