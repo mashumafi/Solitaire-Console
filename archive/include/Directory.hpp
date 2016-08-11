@@ -10,9 +10,15 @@ class Directory
   friend class boost::serialization::access;
   std::string name;
   template<class Archive>
-  void save(Archive & ar, const unsigned int version) const;
+  void save(Archive & ar, const unsigned int version) const
+  {
+    ar & name;
+  }
   template<class Archive>
-  void load(Archive & ar, const unsigned int version);
+  void load(Archive & ar, const unsigned int version)
+  {
+    ar & name;
+  }
   BOOST_SERIALIZATION_SPLIT_MEMBER()
 public:
   Directory();

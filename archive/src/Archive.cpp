@@ -1,8 +1,10 @@
 #include <Archive.hpp>
 #include <Header.hpp>
+#include <File.hpp>
+#include <Directory.hpp>
 
-#include <boost/archive/xml_oarchive.hpp>
-#include <boost/archive/xml_iarchive.hpp>
+#include <boost/archive/binary_oarchive.hpp>
+#include <boost/archive/binary_iarchive.hpp>
 
 #include <fstream>
 #include <iostream>
@@ -22,8 +24,8 @@ int Archive::main(const vector<string>&)
 
   if(myfile.is_open())
   {
-    //boost::archive::xml_oarchive oa(ofs);
-    //oa << header;
+    boost::archive::binary_oarchive oa(ofs);
+    oa << header;
     myfile.close();
   }
   else
