@@ -12,6 +12,17 @@ set(EXECUTABLE_OUTPUT_PATH ${PROJECT_BINARY_DIR}/bin)
 
 include(functions)
 
+if(WIN32)
+  add_definitions(-DBOOST_ALL_NO_LIB)
+  set(Boost_USE_STATIC_LIBS   ON)
+else()
+  set(Boost_USE_STATIC_LIBS  OFF)
+endif()
+set(Boost_USE_MULTITHREADED   ON)
+set(Boost_USE_STATIC_RUNTIME OFF)
+
+find_package(Boost COMPONENTS system thread regex filesystem serialize)
+
 add_subdirectory(common)
 add_subdirectory(archive)
 add_subdirectory(blackjack)
