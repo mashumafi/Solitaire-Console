@@ -25,8 +25,6 @@ find_package(Boost COMPONENTS system thread regex filesystem serialization REQUI
 include_directories(${Boost_INCLUDE_DIRS})
 link_directories(${Boost_LIBRARY_DIRS})
 
-include_directories(${common_SOURCE_DIR}/include)
-
 add_subdirectory(common)
 add_subdirectory(archive)
 add_subdirectory(blackjack)
