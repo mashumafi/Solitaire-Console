@@ -21,7 +21,7 @@ endif()
 set(Boost_USE_MULTITHREADED   ON)
 set(Boost_USE_STATIC_RUNTIME OFF)
 
-find_package(Boost COMPONENTS system thread regex filesystem serialize)
+find_package(Boost COMPONENTS system thread regex filesystem serialization REQUIRED)
 
 add_subdirectory(common)
 add_subdirectory(archive)
