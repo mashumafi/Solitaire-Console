@@ -1,4 +1,8 @@
 #include <Archive.hpp>
+#include <Header.hpp>
+
+#include <boost/archive/xml_oarchive.hpp>
+#include <boost/archive/xml_iarchive.hpp>
 
 #include <fstream>
 #include <iostream>
@@ -12,12 +16,14 @@ Archive::~Archive()
 int Archive::main(const vector<string>&)
 {
   fstream myfile;
-  myfile.open("example.txt", ios::binary | ios::in | ios::out);
+  myfile.open("example.txt", ios::binary | ios::in);
+  Header header;
+  std::ofstream ofs("filename");
 
   if(myfile.is_open())
   {
-    myfile << "Writing this to a file.";
-    myfile << 123;
+    //boost::archive::xml_oarchive oa(ofs);
+    //oa << header;
     myfile.close();
   }
   else
