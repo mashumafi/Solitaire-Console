@@ -21,7 +21,7 @@ ENDIF()
 SET(Boost_USE_MULTITHREADED   ON)
 SET(Boost_USE_STATIC_RUNTIME OFF)
 
-FIND_PACKAGE(Boost 1.54.0 COMPONENTS system thread regex filesystem serialization REQUIRED)
+FIND_PACKAGE(Boost 1.54.0 COMPONENTS filesystem regex serialization system thread REQUIRED)
 INCLUDE_DIRECTORIES(${Boost_INCLUDE_DIRS})
 LINK_DIRECTORIES(${Boost_LIBRARY_DIRS})
 
