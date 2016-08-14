@@ -7,7 +7,7 @@
 #include <Directory.hpp>
 #include <File.hpp>
 
-#include <iostream>
+#include <fstream>
 
 #include <boost/static_assert.hpp>
 
@@ -26,4 +26,5 @@ public:
   Archive();
   virtual ~Archive();
   virtual int main(const std::vector<std::string>&) override;
+  void close();
 };

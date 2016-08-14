@@ -13,6 +13,8 @@ struct Directory : Meta
 class DirectoryStream : public MetaStream<Directory>
 {
 public:
-  DirectoryStream(std::iostream*);
-  virtual ~DirectoryStream();
+  DirectoryStream(std::iostream* ios) : MetaStream(ios)
+  {
+  }
+  virtual ~DirectoryStream() {}
 };

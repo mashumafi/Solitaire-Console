@@ -13,6 +13,6 @@ struct Available
 class AvailableStream : public StreamWrapper<Available>
 {
 public:
-  AvailableStream(std::iostream*);
-  virtual ~AvailableStream();
+  AvailableStream(std::iostream* ios) : StreamWrapper(ios) {}
+  virtual ~AvailableStream() {}
 };

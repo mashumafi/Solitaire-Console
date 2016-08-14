@@ -11,6 +11,8 @@ struct File : Meta
 class FileStream : public MetaStream<File>
 {
 public:
-  FileStream(std::iostream*);
-  virtual ~FileStream();
+  FileStream(std::iostream* ios) : MetaStream(ios)
+  {
+  }
+  virtual ~FileStream() {}
 };
