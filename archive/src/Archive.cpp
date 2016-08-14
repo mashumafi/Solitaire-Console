@@ -11,7 +11,7 @@ Archive::Archive()
 {
 }
 
-Archive::Archive(const string& filename)
+Archive::Archive(const string& filename) : m_header(nullptr)
 {
   fstream* test = new fstream;
   test->open(filename, ios::binary | ios::in);
@@ -32,7 +32,7 @@ Archive::Archive(const string& filename)
   m_stream = test;
 }
 
-Archive::Archive(iostream* ios) : m_stream(ios)
+Archive::Archive(iostream* ios) : m_stream(ios), m_header(nullptr)
 {
 }
 

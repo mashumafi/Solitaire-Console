@@ -1,6 +1,7 @@
 #pragma once
 
 #include <StreamWrapper.hpp>
+#include <Available.hpp>
 #include <Directory.hpp>
 #include <File.hpp>
 
@@ -21,6 +22,20 @@ public:
     m_data.m_available = 0;
   }
   virtual ~HeaderStream() {}
-  DirectoryStream* getRoot(void);
-  AvailableStream* getAvailable(void);
+  DirectoryStream* getRoot(void)
+  {
+    if(m_data.m_root.value() == 0)
+    {
+      
+    }
+    return nullptr;
+  }
+  AvailableStream* getAvailable(void)
+  {
+    if(m_data.m_available.value() == 0)
+    {
+      
+    }
+    return nullptr;
+  }
 };
