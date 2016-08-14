@@ -1,27 +1,17 @@
 #pragma once
 
-#include <boost/serialization/list.hpp>
-#include <boost/serialization/string.hpp>
-#include <boost/serialization/version.hpp>
-#include <boost/serialization/split_member.hpp>
+#include <StreamWrapper.hpp>
 
-class File
+#include <boost/endian/buffers.hpp>
+
+struct File
 {
-  friend class boost::serialization::access;
-  std::string name;
-  template<class Archive>
-  void save(Archive & ar, const unsigned int version) const
-  {
-    ar & name;
-  }
-  template<class Archive>
-  void load(Archive & ar, const unsigned int version)
-  {
-    ar & name;
-  }
-  BOOST_SERIALIZATION_SPLIT_MEMBER()
-public:
-  File();
+  boost::endian::big_uint8_buf_at name[256];
 };
 
-BOOST_CLASS_VERSION(File, 0)
+class FileStream : public StreamWrapper<File>
+{
+public:
+  FileStream(std::istream&);
+  virtual ~FileStream();
+};

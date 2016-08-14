@@ -1,5 +1,9 @@
 #include <Header.hpp>
 
-Header::Header()
+HeaderStream::HeaderStream(std::istream& is) : StreamWrapper(is)
+{
+}
+
+HeaderStream::~HeaderStream()
 {
 }

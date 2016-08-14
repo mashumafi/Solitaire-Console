@@ -1,27 +1,17 @@
 #pragma once
 
-#include <boost/serialization/string.hpp>
-#include <boost/serialization/list.hpp>
-#include <boost/serialization/version.hpp>
-#include <boost/serialization/split_member.hpp>
+#include <StreamWrapper.hpp>
 
-class Header
+#include <boost/endian/buffers.hpp>
+
+struct Header
 {
-  friend class boost::serialization::access;
-  template<class Archive>
-  void save(Archive& ar, const unsigned int version) const
-  {
-    ar & root;
-  }
-  template<class Archive>
-  void load(Archive& ar, const unsigned int version)
-  {
-    ar & root;
-  }
-  BOOST_SERIALIZATION_SPLIT_MEMBER()
-public:
-  int root;
-  Header();
+  boost::endian::big_uint32_buf_at root;
 };
 
-BOOST_CLASS_VERSION(Header, 0)
+class HeaderStream : public StreamWrapper<Header>
+{
+public:
+  HeaderStream(std::istream&);
+  virtual ~HeaderStream();
+};

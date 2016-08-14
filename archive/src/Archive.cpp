@@ -3,9 +3,6 @@
 #include <File.hpp>
 #include <Directory.hpp>
 
-#include <boost/archive/binary_oarchive.hpp>
-#include <boost/archive/binary_iarchive.hpp>
-
 #include <fstream>
 #include <iostream>
 
@@ -23,18 +20,10 @@ int Archive::main(const vector<string>&)
 
   if(readonly.is_open())
   {
-    boost::archive::binary_iarchive ia(readonly);
-    ia >> header;
-    std::cout << header.root << std::endl;
     readonly.close();
   }
   else
   {
-    readonly.close();
-    readonly.open("example.ar", ios::binary | ios::out);
-    boost::archive::binary_oarchive oa(readonly);
-    header.root = 50;
-    oa << header;
     readonly.close();
   }
  

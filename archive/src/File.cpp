@@ -1,5 +1,9 @@
 #include <File.hpp>
 
-File::File()
+FileStream::FileStream(std::istream& is) : StreamWrapper(is)
+{
+}
+
+FileStream::~FileStream()
 {
 }

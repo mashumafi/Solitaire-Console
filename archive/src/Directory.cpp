@@ -1,5 +1,9 @@
 #include <Directory.hpp>
 
-Directory::Directory()
+DirectoryStream::DirectoryStream(std::istream& is) : StreamWrapper(is)
+{
+}
+
+DirectoryStream::~DirectoryStream()
 {
 }
