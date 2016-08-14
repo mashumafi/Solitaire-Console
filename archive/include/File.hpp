@@ -1,17 +1,16 @@
 #pragma once
 
-#include <StreamWrapper.hpp>
+#include <Meta.hpp>
 
-#include <boost/endian/buffers.hpp>
-
-struct File
+struct File : Meta
 {
-  boost::endian::big_uint8_buf_at name[256];
+  boost::endian::big_int8_buf_at content[512];
+  boost::endian::big_int64_buf_at next;
 };
 
-class FileStream : public StreamWrapper<File>
+class FileStream : public MetaStream<File>
 {
 public:
-  FileStream(std::istream&);
+  FileStream(std::iostream*);
   virtual ~FileStream();
 };

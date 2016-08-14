@@ -6,12 +6,13 @@
 
 struct Header
 {
-  boost::endian::big_uint32_buf_at root;
+  boost::endian::big_int64_buf_at root;
+  boost::endian::big_int64_buf_at available;
 };
 
 class HeaderStream : public StreamWrapper<Header>
 {
 public:
-  HeaderStream(std::istream&);
+  HeaderStream(std::iostream*);
   virtual ~HeaderStream();
 };

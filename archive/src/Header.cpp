@@ -1,6 +1,6 @@
 #include <Header.hpp>
 
-HeaderStream::HeaderStream(std::istream& is) : StreamWrapper(is)
+HeaderStream::HeaderStream(std::iostream* is) : StreamWrapper(is)
 {
 }
 

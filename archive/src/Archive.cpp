@@ -4,9 +4,31 @@
 #include <Directory.hpp>
 
 #include <fstream>
-#include <iostream>
 
 using namespace std;
+
+Archive::Archive()
+{
+}
+
+Archive::Archive(const string& filename)
+{
+  fstream test;
+  test.open(filename, ios::binary | ios::in);
+
+  if(test.is_open()) // the file exists
+  {
+    m_header = new HeaderStream(test);
+  }
+  else
+  {
+    test.close();
+  }
+}
+
+Archive::Archive(iostream* ios) : m_stream(ios)
+{
+}
 
 Archive::~Archive()
 {
@@ -14,18 +36,6 @@ Archive::~Archive()
 
 int Archive::main(const vector<string>&)
 {
-  fstream readonly;
-  readonly.open("example.ar", ios::binary | ios::in);
-  Header header;
-
-  if(readonly.is_open())
-  {
-    readonly.close();
-  }
-  else
-  {
-    readonly.close();
-  }
  
   return 0;
 }

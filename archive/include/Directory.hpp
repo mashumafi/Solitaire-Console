@@ -1,17 +1,18 @@
 #pragma once
 
-#include <StreamWrapper.hpp>
+#include <Meta.hpp>
 
-#include <boost/endian/buffers.hpp>
+#include <string>
 
-struct Directory
+struct Directory : Meta
 {
-  boost::endian::big_uint8_buf_at name[256];
+  boost::endian::big_int64_buf_at content[64];
+  boost::endian::big_int64_buf_at next;
 };
 
-class DirectoryStream : public StreamWrapper<Directory>
+class DirectoryStream : public MetaStream<Directory>
 {
 public:
-  DirectoryStream(std::istream&);
+  DirectoryStream(std::iostream*);
   virtual ~DirectoryStream();
 };

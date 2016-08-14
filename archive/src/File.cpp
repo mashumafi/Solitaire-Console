@@ -1,6 +1,12 @@
 #include <File.hpp>
 
-FileStream::FileStream(std::istream& is) : StreamWrapper(is)
+#include <algorithm>
+
+using namespace std;
+
+using namespace boost::posix_time;
+
+FileStream::FileStream(std::iostream* is) : MetaStream(is)
 {
 }
 
