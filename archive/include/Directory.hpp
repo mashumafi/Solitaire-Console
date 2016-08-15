@@ -13,8 +13,22 @@ struct Directory : Meta
 class DirectoryStream : public MetaStream<Directory>
 {
 public:
-  DirectoryStream(std::iostream* ios) : MetaStream(ios)
+  DirectoryStream(HeaderStream* header) : MetaStream(header), m_next(nullptr)
   {
   }
   virtual ~DirectoryStream() {}
+private:
+  DirectoryStream* m_next;
+  DirectoryStream* next(void) const
+  {
+    if(m_next != nullptr)
+    {
+      return m_next;
+    }
+    if(m_data.next.value() == 0)
+    {
+      
+    }
+    return nullptr;
+  }
 };

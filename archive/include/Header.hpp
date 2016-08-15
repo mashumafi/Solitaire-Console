@@ -1,7 +1,7 @@
 #pragma once
 
-#include <StreamWrapper.hpp>
-#include <Available.hpp>
+class HeaderStream;
+#include <Allocator.hpp>
 #include <Directory.hpp>
 #include <File.hpp>
 
@@ -10,32 +10,44 @@
 struct Header
 {
   boost::endian::big_int64_buf_at m_root;
-  boost::endian::big_int64_buf_at m_available;
+  boost::endian::big_int64_buf_at m_alloc;
 };
 
 class HeaderStream : public StreamWrapper<Header>
 {
 public:
-  HeaderStream(std::iostream* ios) : StreamWrapper<Header>(ios)
+  HeaderStream(std::iostream* ios) : StreamWrapper<Header>(ios), m_root(nullptr), m_alloc(nullptr)
   {
     m_data.m_root = 0;
-    m_data.m_available = 0;
+    m_data.m_alloc = 0;
   }
   virtual ~HeaderStream() {}
   DirectoryStream* getRoot(void)
   {
+    if(m_root != nullptr)
+    {
+      return m_root;
+    }
     if(m_data.m_root.value() == 0)
     {
-      
+      AllocatorStream* allocator = getAllocator();
+      allocator->alloc();
     }
-    return nullptr;
+    return m_root = new DirectoryStream(this);
   }
-  AvailableStream* getAvailable(void)
+  AllocatorStream* getAllocator(void)
   {
-    if(m_data.m_available.value() == 0)
+    if(m_alloc != nullptr)
+    {
+      return m_alloc;
+    }
+    if(m_data.m_alloc.value() == 0)
     {
       
     }
-    return nullptr;
+    return m_alloc = new AllocatorStream(this);
   }
+private:
+  DirectoryStream* m_root;
+  AllocatorStream* m_alloc;
 };

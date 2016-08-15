@@ -1,7 +1,6 @@
-#pragma once
-
 #include <StreamWrapper.hpp>
 #include <ArchiveUtil.hpp>
+#include <Header.hpp>
 
 #include <string>
 
@@ -19,22 +18,8 @@ struct Meta
 
 template<class T> class MetaStream : public StreamWrapper<T>
 {
-private:
-  void created(void)
-  {
-    string_to_big(boost::posix_time::to_iso_string(boost::posix_time::second_clock::local_time()), this->data.created, sizeof(this->m_data.created));
-  }
-  void changed(void)
-  {
-    string_to_big(boost::posix_time::to_iso_string(boost::posix_time::second_clock::local_time()), this->m_data.changed, sizeof(this->m_data.changed));
-  }
-protected:
-  template<class U> void save(const U& var) const
-  {
-    StreamWrapper<T>::save(var);
-  }
 public:
-  MetaStream(std::iostream* ios) : StreamWrapper<T>(ios) {}
+  MetaStream(HeaderStream* header) : StreamWrapper<T>(nullptr) {}
   virtual ~MetaStream() {}
   boost::posix_time::ptime created(void) const
   {
@@ -56,8 +41,12 @@ public:
   }
   void name(const std::string& s)
   {
-    big_to_string(this->data, s, sizeof(this->data));
-    save(this->data.name);
+    big_to_string(this->m_data, s, sizeof(this->m_data));
+    save(this->m_data.name);
+  }
+  virtual void saved(void) override
+  {
+    changed();
   }
   virtual void load(void) override
   {
@@ -68,5 +57,14 @@ public:
     created();
     name(n);
     changed();
+  }
+private:
+  void created(void)
+  {
+    string_to_big(boost::posix_time::to_iso_string(boost::posix_time::second_clock::local_time()), this->data.created, sizeof(this->m_data.created));
+  }
+  void changed(void)
+  {
+    string_to_big(boost::posix_time::to_iso_string(boost::posix_time::second_clock::local_time()), this->m_data.changed, sizeof(this->m_data.changed));
   }
 };

@@ -11,8 +11,22 @@ struct File : Meta
 class FileStream : public MetaStream<File>
 {
 public:
-  FileStream(std::iostream* ios) : MetaStream(ios)
+  FileStream(HeaderStream* header) : MetaStream(header), m_next(nullptr)
   {
   }
   virtual ~FileStream() {}
+private:
+  FileStream* m_next;
+  FileStream* next(void) const
+  {
+    if(m_next != nullptr)
+    {
+      return m_next;
+    }
+    if(m_data.next.value() == 0)
+    {
+      
+    }
+    return nullptr;
+  }
 };
