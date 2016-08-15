@@ -1,3 +1,5 @@
+#pragma once
+
 #include <StreamWrapper.hpp>
 #include <ArchiveUtil.hpp>
 #include <Header.hpp>
