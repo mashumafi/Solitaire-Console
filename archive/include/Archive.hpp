@@ -3,6 +3,7 @@
 #include <Main.hpp>
 
 #include <Header.hpp>
+#include <Allocator.hpp>
 #include <Directory.hpp>
 #include <File.hpp>
 
@@ -18,12 +19,11 @@ class Archive : public Main
 {
 public:
   Archive(const std::string&);
-  Archive(std::iostream*);
   Archive();
   virtual ~Archive();
   virtual int main(const std::vector<std::string>&) override;
   void close();
 private:
-  std::iostream* m_stream;
+  std::fstream m_stream;
   HeaderStream* m_header;
 };

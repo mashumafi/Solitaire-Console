@@ -1,7 +1,4 @@
 #include <Archive.hpp>
-#include <Header.hpp>
-#include <File.hpp>
-#include <Directory.hpp>
 
 #include <fstream>
 
@@ -13,31 +10,27 @@ Archive::Archive()
 
 Archive::Archive(const string& filename) : m_header(nullptr)
 {
-  fstream* test = new fstream;
-  test->open(filename, ios::binary | ios::in);
+  m_stream.open(filename, ios::binary | ios::in);
 
-  if(!test->is_open()) // create the file
+  if(!m_stream.is_open()) // create the file
   {
-    test->open(filename, ios::binary | ios::out);
-    m_header = new HeaderStream(test);
+    m_stream.open(filename, ios::binary | ios::out);
+    m_header = new HeaderStream(&m_stream);
     m_header->save();
   }
-  test->open(filename, ios::binary | ios::in | ios::out);
+  m_stream.open(filename, ios::binary | ios::in | ios::out);
   if(m_header != nullptr)
   {
     delete m_header;
   }
-  m_header = new HeaderStream(test);
+  m_header = new HeaderStream(&m_stream);
   m_header->load();
-  m_stream = test;
-}
-
-Archive::Archive(iostream* ios) : m_stream(ios), m_header(nullptr)
-{
 }
 
 Archive::~Archive()
 {
+  delete m_header;
+  close();
 }
 
 int Archive::main(const vector<string>&)
@@ -49,8 +42,5 @@ int Archive::main(const vector<string>&)
 
 void Archive::close()
 {
-  if(fstream* fs = dynamic_cast<fstream*>(m_stream))
-  {
-    fs->close();
-  }
+  m_stream.close();
 }

@@ -1,13 +1,18 @@
 #pragma once
 
+#include <fstream>
 #include <iostream>
 
 template<class T>
 class StreamWrapper
 {
 public:
-  StreamWrapper(std::iostream* ios) : m_stream(ios), m_pos(ios->tellg()) {}
-  virtual ~StreamWrapper() {}
+  StreamWrapper(std::fstream* ios) : m_stream(ios), m_pos(ios->tellg()) {
+    std::cout << "m_pos: " << m_pos << std::endl;
+  }
+  virtual ~StreamWrapper()
+  {
+  }
   void save(void) const
   {
     m_stream->seekg(m_pos);
@@ -18,9 +23,13 @@ public:
     m_stream->seekp(m_pos);
     m_stream->read(reinterpret_cast<char*>(&m_data), sizeof(T)); 
   }
+  long pos(void) const
+  {
+    return m_pos;
+  }
 protected:
   T m_data;
-  std::iostream* m_stream;
+  std::fstream* m_stream;
   template<class U> void save(const U& var) const
   {
     m_stream->seekg(m_pos + (&var - &m_data));
