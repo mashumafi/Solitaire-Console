@@ -1,7 +1,7 @@
 #pragma once
 
 #include <StreamWrapper.hpp>
-#include <Header.hpp>
+class HeaderStream;
 
 #include <boost/endian/buffers.hpp>
 
@@ -14,40 +14,53 @@ struct Allocator
 class AllocatorStream : public StreamWrapper<Allocator>
 {
 public:
-  AllocatorStream(HeaderStream* header) : StreamWrapper<Allocator>(nullptr), m_next(nullptr) {}
-  virtual ~AllocatorStream()
-  {
-    if(m_next != nullptr)
-    {
-      delete m_next;
-    }
-  }
-  void alloc(void)
-  {
-    if(pos() == 0L)
-    {
-      m_stream->seekg(0, std::ios::end);
-    }
-    else
-    {
-      
-    }
-  }
-  void erase(long)
-  {
-  }
+  AllocatorStream(HeaderStream* header);
+  virtual ~AllocatorStream();
+  void alloc(void);
+  void erase(long);
 private:
   AllocatorStream* m_next;
-  AllocatorStream* next(void) const
-  {
-    if(m_next != nullptr)
-    {
-      return m_next;
-    }
-    if(m_data.next.value() == 0)
-    {
-      
-    }
-    return nullptr;
-  }
+  AllocatorStream* next(void) const;
 };
+
+#include <Header.hpp>
+
+inline AllocatorStream::AllocatorStream(HeaderStream* header) : StreamWrapper<Allocator>(header->m_stream), m_next(nullptr)
+{
+}
+
+inline AllocatorStream::~AllocatorStream()
+{
+  if(m_next != nullptr)
+  {
+    delete m_next;
+  }
+}
+
+inline void AllocatorStream::alloc(void)
+{
+  if(pos() == 0L)
+  {
+    m_stream->seekg(0, std::ios::end);
+  }
+  else
+  {
+    
+  }
+}
+
+inline void AllocatorStream::erase(long)
+{
+}
+
+inline AllocatorStream* AllocatorStream::next(void) const
+{
+  if(m_next != nullptr)
+  {
+    return m_next;
+  }
+  if(m_data.next.value() == 0)
+  {
+  }
+  return nullptr;
+}

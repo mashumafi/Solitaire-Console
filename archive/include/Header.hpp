@@ -1,9 +1,8 @@
 #pragma once
 
-class HeaderStream;
-#include <Allocator.hpp>
-#include <Directory.hpp>
-#include <File.hpp>
+#include "StreamWrapper.hpp"
+class AllocatorStream;
+class DirectoryStream;
 
 #include <boost/endian/buffers.hpp>
 
@@ -23,7 +22,12 @@ public:
 private:
   DirectoryStream* m_root;
   AllocatorStream* m_alloc;
+friend class AllocatorStream;
+template<class T> friend class MetaStream;
 };
+
+#include <Allocator.hpp>
+#include <Directory.hpp>
 
 inline HeaderStream::HeaderStream(std::fstream* ios) : StreamWrapper<Header>(ios), m_root(nullptr), m_alloc(nullptr)
 {

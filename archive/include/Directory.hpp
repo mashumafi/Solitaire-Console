@@ -20,6 +20,8 @@ private:
   DirectoryStream* next(void) const;
 };
 
+#include <Header.hpp>
+
 inline DirectoryStream::DirectoryStream(HeaderStream* header, DirectoryStream* parent)
      : MetaStream<Directory>(header, parent), m_next(nullptr)
 {
