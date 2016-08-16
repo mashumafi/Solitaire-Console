@@ -22,10 +22,10 @@ public:
   }
   virtual void load(void)
   {
-    long temp = m_stream->tellp();
+    long temp = m_stream->tellg();
     m_stream->seekg(m_pos, std::ios::beg);
     m_stream->read(reinterpret_cast<char*>(&m_data), sizeof(T)); 
-    m_stream->seekp(temp, std::ios::beg);
+    m_stream->seekg(temp, std::ios::beg);
   }
   long pos(void) const
   {
