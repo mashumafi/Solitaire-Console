@@ -26,7 +26,7 @@ struct Meta
   boost::endian::big_uint8_buf_at name[256];
 };
 
-template<class T> class MetaStream : public HeaderWrapper<T>
+template<class T, class U> class MetaStream : public HeaderWrapper<T, U>
 {
 public:
   MetaStream(HeaderStream* header, DirectoryStream* parent = nullptr);
@@ -42,6 +42,7 @@ public:
   void remove();
 protected:
   void saved(void);
+friend class StreamWrapper<T, U>;
 private:
   DirectoryStream* m_parent;
   bool m_created;
@@ -52,44 +53,44 @@ private:
 #include <StreamWrapper.hpp>
 #include <Directory.hpp>
 
-template<class T> inline MetaStream<T>::MetaStream(HeaderStream* header, DirectoryStream* parent)
-                                      : HeaderWrapper<T>(header)
-                                      , m_created(false)
+template<class T, class U> inline MetaStream<T, U>::MetaStream(HeaderStream* header, DirectoryStream* parent)
+                                                  : HeaderWrapper<T, U>(header)
+                                                  , m_created(false)
 {
 }
 
-template<class T> inline MetaStream<T>::~MetaStream(void)
+template<class T, class U> inline MetaStream<T, U>::~MetaStream(void)
 {
 }
 
-template<class T> inline boost::posix_time::ptime MetaStream<T>::created(void) const
+template<class T, class U> inline boost::posix_time::ptime MetaStream<T, U>::created(void) const
 {
   std::string iso;
   big_to_string(this->m_data.created, iso, sizeof(this->m_data.created));
   return boost::posix_time::from_iso_string(iso);
 }
 
-template<class T> inline boost::posix_time::ptime MetaStream<T>::changed(void) const
+template<class T, class U> inline boost::posix_time::ptime MetaStream<T, U>::changed(void) const
 {
   std::string iso;
   big_to_string(this->m_data.changed, iso, sizeof(this->m_data.changed));
   return boost::posix_time::from_iso_string(iso);
 }
 
-template<class T> inline std::string MetaStream<T>::name() const
+template<class T, class U> inline std::string MetaStream<T, U>::name() const
 {
   std::string ret;
   big_to_string(this->m_data, ret, sizeof(this->m_data));
   return ret;
 }
 
-template<class T> inline void MetaStream<T>::name(const std::string& s)
+template<class T, class U> inline void MetaStream<T, U>::name(const std::string& s)
 {
   string_to_big(s, this->m_data.name, sizeof(this->m_data.name));
-  HeaderWrapper<T>::save(&this->m_data.name);
+  HeaderWrapper<T, U>::save(&this->m_data.name);
 }
 
-template<class T> inline void MetaStream<T>::saved(void)
+template<class T, class U> inline void MetaStream<T, U>::saved(void)
 {
   if(this->m_created)
   {
@@ -97,13 +98,13 @@ template<class T> inline void MetaStream<T>::saved(void)
   }
 }
 
-template<class T> inline void MetaStream<T>::load(void)
+template<class T, class U> inline void MetaStream<T, U>::load(void)
 {
-  HeaderWrapper<T>::load();
+  HeaderWrapper<T, U>::load();
   this->m_created = true;
 }
 
-template<class T> inline void MetaStream<T>::create(const std::string& n)
+template<class T, class U> inline void MetaStream<T, U>::create(const std::string& n)
 {
   if(!m_created)
   {
@@ -115,26 +116,26 @@ template<class T> inline void MetaStream<T>::create(const std::string& n)
   }
 }
 
-template<class T> inline DirectoryStream* MetaStream<T>::parent(void) const
+template<class T, class U> inline DirectoryStream* MetaStream<T, U>::parent(void) const
 {
   return m_parent;
 }
 
-template<class T> inline void MetaStream<T>::parent(DirectoryStream*)
+template<class T, class U> inline void MetaStream<T, U>::parent(DirectoryStream*)
 {
 }
 
-template<class T> inline void MetaStream<T>::created(void)
+template<class T, class U> inline void MetaStream<T, U>::created(void)
 {
   string_to_big(boost::posix_time::to_iso_string(boost::posix_time::second_clock::local_time()), this->m_data.created, sizeof(this->m_data.created));
 }
 
-template<class T> inline void MetaStream<T>::changed(void)
+template<class T, class U> inline void MetaStream<T, U>::changed(void)
 {
   string_to_big(boost::posix_time::to_iso_string(boost::posix_time::second_clock::local_time()), this->m_data.changed, sizeof(this->m_data.changed));
 }
 
-template<class T> inline void MetaStream<T>::remove(void)
+template<class T, class U> inline void MetaStream<T, U>::remove(void)
 {
   if(this->hasNext())
   {

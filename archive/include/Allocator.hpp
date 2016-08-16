@@ -12,7 +12,7 @@ struct Allocator
   boost::endian::big_int64_buf_at next;
 };
 
-class AllocatorStream : public HeaderWrapper<Allocator>
+class AllocatorStream : public HeaderWrapper<Allocator, AllocatorStream>
 {
 public:
   AllocatorStream(HeaderStream* header);
@@ -20,13 +20,16 @@ public:
   void alloc(void);
   void erase(long);
   void remove(void);
+protected:
+  void saved(void);
+friend class StreamWrapper<Allocator, AllocatorStream>;
 private:
   HeaderStream* m_header;
   AllocatorStream** m_allocs;
 };
 
 inline AllocatorStream::AllocatorStream(HeaderStream* header)
-                      : HeaderWrapper<Allocator>(header)
+                      : HeaderWrapper<Allocator, AllocatorStream>(header)
                       , m_header(header)
                       , m_allocs(new AllocatorStream*[sizeof(m_data.pos)]())
 {

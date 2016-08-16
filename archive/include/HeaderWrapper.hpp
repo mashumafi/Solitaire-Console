@@ -5,7 +5,7 @@
 class HeaderStream;
 class AllocatorStream;
 
-template<class T> class HeaderWrapper : public StreamWrapper<T>
+template<class T, class U> class HeaderWrapper : public StreamWrapper<T, U>
 {
 public:
   HeaderWrapper(HeaderStream*);
@@ -22,12 +22,14 @@ private:
 #include <Header.hpp>
 #include <Allocator.hpp>
 
-template<class T> inline HeaderWrapper<T>::HeaderWrapper(HeaderStream* header)
-                                      : StreamWrapper<T>(header->m_stream), m_header(header), m_next(nullptr)
+template<class T, class U> inline HeaderWrapper<T, U>::HeaderWrapper(HeaderStream* header)
+                                                     : StreamWrapper<T, U>(header->m_stream)
+                                                     , m_header(header)
+                                                     , m_next(nullptr)
 {
 }
 
-template<class T> inline HeaderWrapper<T>::~HeaderWrapper(void)
+template<class T, class U> inline HeaderWrapper<T, U>::~HeaderWrapper(void)
 {
   if(m_next != nullptr)
   {
@@ -35,12 +37,12 @@ template<class T> inline HeaderWrapper<T>::~HeaderWrapper(void)
   }
 }
 
-template<class T> inline bool HeaderWrapper<T>::hasNext(void) const
+template<class T, class U> inline bool HeaderWrapper<T, U>::hasNext(void) const
 {
   return m_next != nullptr;
 }
 
-template<class T> inline AllocatorStream* HeaderWrapper<T>::next(void)
+template<class T, class U> inline AllocatorStream* HeaderWrapper<T, U>::next(void)
 {
   if(m_next != nullptr)
   {
@@ -57,7 +59,7 @@ template<class T> inline AllocatorStream* HeaderWrapper<T>::next(void)
   return nullptr;
 }
 
-template<class T> inline AllocatorStream* HeaderWrapper<T>::getAllocator(void)
+template<class T, class U> inline AllocatorStream* HeaderWrapper<T, U>::getAllocator(void)
 {
   return m_header->getAllocator();
 }

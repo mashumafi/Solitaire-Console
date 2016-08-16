@@ -9,7 +9,7 @@ struct File : Meta
   boost::endian::big_int64_buf_at next;
 };
 
-class FileStream : public MetaStream<File>
+class FileStream : public MetaStream<File, FileStream>
 {
 public:
   FileStream(HeaderStream* header, DirectoryStream* parent = nullptr);
@@ -17,7 +17,8 @@ public:
 private:
 };
 
-inline FileStream::FileStream(HeaderStream* header, DirectoryStream* parent) : MetaStream(header, parent)
+inline FileStream::FileStream(HeaderStream* header, DirectoryStream* parent)
+                 : MetaStream<File, FileStream>(header, parent)
 {
     std::cout << "File m_pos: " << pos() << std::endl;
 }

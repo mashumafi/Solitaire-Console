@@ -12,7 +12,7 @@ struct Header
   boost::endian::big_int64_buf_at m_alloc;
 };
 
-class HeaderStream : public StreamWrapper<Header>
+class HeaderStream : public StreamWrapper<Header, HeaderStream>
 {
 public:
   HeaderStream(std::fstream*);
@@ -20,16 +20,21 @@ public:
   DirectoryStream* getRoot(void);
 protected:
   AllocatorStream* getAllocator(void);
+  void saved(void) {}
+friend class StreamWrapper<Header, HeaderStream>;
 private:
   DirectoryStream* m_root;
   AllocatorStream* m_alloc;
-template<class T> friend class HeaderWrapper;
+template<class T, class U> friend class HeaderWrapper;
 };
 
 #include <Allocator.hpp>
 #include <Directory.hpp>
 
-inline HeaderStream::HeaderStream(std::fstream* ios) : StreamWrapper<Header>(ios), m_root(nullptr), m_alloc(nullptr)
+inline HeaderStream::HeaderStream(std::fstream* ios)
+                   : StreamWrapper<Header, HeaderStream>(ios)
+                   , m_root(nullptr)
+                   , m_alloc(nullptr)
 {
   std::cout << "Header    m_pos: " << pos() << std::endl;
   m_data.m_root = 0;

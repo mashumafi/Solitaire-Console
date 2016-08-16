@@ -11,7 +11,7 @@ struct Directory : Meta
   boost::endian::big_int64_buf_at next;
 };
 
-class DirectoryStream : public MetaStream<Directory>
+class DirectoryStream : public MetaStream<Directory, DirectoryStream>
 {
 public:
   DirectoryStream(HeaderStream* header, DirectoryStream* parent = nullptr);
@@ -25,7 +25,7 @@ private:
 #include <File.hpp>
 
 inline DirectoryStream::DirectoryStream(HeaderStream* header, DirectoryStream* parent)
-                      : MetaStream<Directory>(header, parent)
+                      : MetaStream<Directory, DirectoryStream>(header, parent)
                       , m_meta(new MetaStream*[sizeof(m_data.content)]())
 {
     std::cout << "Directory m_pos: " << pos() << std::endl;

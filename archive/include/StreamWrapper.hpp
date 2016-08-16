@@ -3,7 +3,7 @@
 #include <fstream>
 #include <iostream>
 
-template<class T>
+template<class T, class U>
 class StreamWrapper
 {
 public:
@@ -17,6 +17,7 @@ public:
   {
     m_stream->seekp(m_pos, std::ios::beg);
     m_stream->write(reinterpret_cast<const char*>(&m_data), sizeof(T));
+    const_cast<U*>(dynamic_cast<const U*>(this))->saved();
   }
   virtual void load(void)
   {
@@ -30,10 +31,11 @@ public:
 protected:
   T m_data;
   std::fstream* m_stream;
-  template<class U> void save(const U* var) const
+  template<class V> void save(const V* var) const
   {
     m_stream->seekp(m_pos + (reinterpret_cast<const char*>(var) - reinterpret_cast<const char*>(&m_data)), std::ios::beg);
-    m_stream->write(reinterpret_cast<const char*>(var), sizeof(U));
+    m_stream->write(reinterpret_cast<const char*>(var), sizeof(V));
+    const_cast<U*>(dynamic_cast<const U*>(this))->saved();
   }
   long m_pos;
 };
