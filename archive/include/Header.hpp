@@ -18,6 +18,7 @@ public:
   HeaderStream(std::fstream*);
   virtual ~HeaderStream(void);
   DirectoryStream* getRoot(void);
+protected:
   AllocatorStream* getAllocator(void);
 private:
   DirectoryStream* m_root;
@@ -30,7 +31,7 @@ template<class T> friend class HeaderWrapper;
 
 inline HeaderStream::HeaderStream(std::fstream* ios) : StreamWrapper<Header>(ios), m_root(nullptr), m_alloc(nullptr)
 {
-  std::cout << "Header " << pos() << std::endl;
+  std::cout << "Header    m_pos: " << pos() << std::endl;
   m_data.m_root = 0;
   m_data.m_alloc = 0;
 }

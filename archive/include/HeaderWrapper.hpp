@@ -12,8 +12,10 @@ public:
   virtual ~HeaderWrapper(void);
   bool hasNext(void) const;
   AllocatorStream* next(void);
-private:
+protected:
   HeaderStream* m_header;
+  AllocatorStream* getAllocator(void);
+private:
   AllocatorStream* m_next;
 };
 
@@ -53,4 +55,9 @@ template<class T> inline AllocatorStream* HeaderWrapper<T>::next(void)
   {
   }
   return nullptr;
+}
+
+template<class T> inline AllocatorStream* HeaderWrapper<T>::getAllocator(void)
+{
+  return m_header->getAllocator();
 }

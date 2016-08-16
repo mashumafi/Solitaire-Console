@@ -15,17 +15,13 @@ public:
   }
   void save(void) const
   {
-    long temp = m_stream->tellp();
     m_stream->seekp(m_pos, std::ios::beg);
     m_stream->write(reinterpret_cast<const char*>(&m_data), sizeof(T));
-    m_stream->seekp(temp, std::ios::beg);
   }
   virtual void load(void)
   {
-    long temp = m_stream->tellg();
     m_stream->seekg(m_pos, std::ios::beg);
     m_stream->read(reinterpret_cast<char*>(&m_data), sizeof(T)); 
-    m_stream->seekg(temp, std::ios::beg);
   }
   long pos(void) const
   {
@@ -36,14 +32,8 @@ protected:
   std::fstream* m_stream;
   template<class U> void save(const U* var) const
   {
-    long temp = m_stream->tellp();
     m_stream->seekp(m_pos + (reinterpret_cast<const char*>(var) - reinterpret_cast<const char*>(&m_data)), std::ios::beg);
     m_stream->write(reinterpret_cast<const char*>(var), sizeof(U));
-    m_stream->seekp(temp, std::ios::beg);
   }
-  virtual void saved(void)
-  {
-  }
-private:
   long m_pos;
 };
