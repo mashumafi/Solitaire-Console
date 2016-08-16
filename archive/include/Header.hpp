@@ -1,6 +1,6 @@
 #pragma once
 
-#include "StreamWrapper.hpp"
+#include <StreamWrapper.hpp>
 class AllocatorStream;
 class DirectoryStream;
 
@@ -16,14 +16,13 @@ class HeaderStream : public StreamWrapper<Header>
 {
 public:
   HeaderStream(std::fstream*);
-  virtual ~HeaderStream();
+  virtual ~HeaderStream(void);
   DirectoryStream* getRoot(void);
   AllocatorStream* getAllocator(void);
 private:
   DirectoryStream* m_root;
   AllocatorStream* m_alloc;
-friend class AllocatorStream;
-template<class T> friend class MetaStream;
+template<class T> friend class HeaderWrapper;
 };
 
 #include <Allocator.hpp>
@@ -31,11 +30,12 @@ template<class T> friend class MetaStream;
 
 inline HeaderStream::HeaderStream(std::fstream* ios) : StreamWrapper<Header>(ios), m_root(nullptr), m_alloc(nullptr)
 {
+  std::cout << "Header " << pos() << std::endl;
   m_data.m_root = 0;
   m_data.m_alloc = 0;
 }
 
-inline HeaderStream::~HeaderStream()
+inline HeaderStream::~HeaderStream(void)
 {
   if(m_root != nullptr)
   {
@@ -59,8 +59,10 @@ inline DirectoryStream* HeaderStream::getRoot(void)
   }
   else
   {
-    m_stream->seekp(m_data.m_root.value());
+    m_stream->seekg(m_data.m_root.value());
   }
+  m_data.m_root = m_stream->tellg();
+  save(&m_data.m_root);
   return m_root = new DirectoryStream(this);
 }
 
@@ -70,6 +72,8 @@ inline AllocatorStream* HeaderStream::getAllocator(void)
   {
     return m_alloc;
   }
-  m_stream->seekp(m_data.m_alloc.value() == 0 ? 0 : m_data.m_alloc.value());
+  m_stream->seekg(m_data.m_alloc.value() == 0 ? 0 : m_data.m_alloc.value());
+  m_data.m_alloc = m_stream->tellg();
+  save(&m_data.m_alloc);
   return m_alloc = new AllocatorStream(this);
 }

@@ -1,9 +1,10 @@
 #pragma once
 
-#include <StreamWrapper.hpp>
+#include <HeaderWrapper.hpp>
 class HeaderStream;
 
 #include <boost/endian/buffers.hpp>
+#include <boost/endian/arithmetic.hpp>
 
 struct Allocator
 {
@@ -11,56 +12,39 @@ struct Allocator
   boost::endian::big_int64_buf_at next;
 };
 
-class AllocatorStream : public StreamWrapper<Allocator>
+class AllocatorStream : public HeaderWrapper<Allocator>
 {
 public:
   AllocatorStream(HeaderStream* header);
-  virtual ~AllocatorStream();
+  virtual ~AllocatorStream(void);
   void alloc(void);
   void erase(long);
 private:
-  AllocatorStream* m_next;
-  AllocatorStream* next(void) const;
+  HeaderStream* m_header;
 };
 
-#include <Header.hpp>
-
-inline AllocatorStream::AllocatorStream(HeaderStream* header) : StreamWrapper<Allocator>(header->m_stream), m_next(nullptr)
+inline AllocatorStream::AllocatorStream(HeaderStream* header)
+             : HeaderWrapper<Allocator>(header), m_header(header)
 {
+    std::cout << "Allocator m_pos: " << pos() << std::endl;
 }
 
-inline AllocatorStream::~AllocatorStream()
+inline AllocatorStream::~AllocatorStream(void)
 {
-  if(m_next != nullptr)
-  {
-    delete m_next;
-  }
 }
 
 inline void AllocatorStream::alloc(void)
 {
-  if(pos() == 0L)
+  if(pos() == 0)
   {
     m_stream->seekg(0, std::ios::end);
+    std::cout << "Appending" << std::endl;
   }
   else
   {
-    
   }
 }
 
 inline void AllocatorStream::erase(long)
 {
-}
-
-inline AllocatorStream* AllocatorStream::next(void) const
-{
-  if(m_next != nullptr)
-  {
-    return m_next;
-  }
-  if(m_data.next.value() == 0)
-  {
-  }
-  return nullptr;
 }

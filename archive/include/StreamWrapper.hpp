@@ -7,21 +7,25 @@ template<class T>
 class StreamWrapper
 {
 public:
-  StreamWrapper(std::fstream* ios) : m_stream(ios), m_pos(ios->tellg()) {
-    std::cout << "m_pos: " << m_pos << std::endl;
+  StreamWrapper(std::fstream* ios) : m_stream(ios), m_pos(ios->tellg())
+  {
   }
-  virtual ~StreamWrapper()
+  virtual ~StreamWrapper(void)
   {
   }
   void save(void) const
   {
-    m_stream->seekg(m_pos);
+    long temp = m_stream->tellp();
+    m_stream->seekp(m_pos, std::ios::beg);
     m_stream->write(reinterpret_cast<const char*>(&m_data), sizeof(T));
+    m_stream->seekp(temp, std::ios::beg);
   }
   virtual void load(void)
   {
-    m_stream->seekp(m_pos);
+    long temp = m_stream->tellp();
+    m_stream->seekg(m_pos, std::ios::beg);
     m_stream->read(reinterpret_cast<char*>(&m_data), sizeof(T)); 
+    m_stream->seekp(temp, std::ios::beg);
   }
   long pos(void) const
   {
@@ -30,10 +34,12 @@ public:
 protected:
   T m_data;
   std::fstream* m_stream;
-  template<class U> void save(const U& var) const
+  template<class U> void save(const U* var) const
   {
-    m_stream->seekg(m_pos + (&var - &m_data));
-    m_stream->write(static_cast<const char*>(var), sizeof(U));
+    long temp = m_stream->tellp();
+    m_stream->seekp(m_pos + (reinterpret_cast<const char*>(var) - reinterpret_cast<const char*>(&m_data)), std::ios::beg);
+    m_stream->write(reinterpret_cast<const char*>(var), sizeof(U));
+    m_stream->seekp(temp, std::ios::beg);
   }
   virtual void saved(void)
   {

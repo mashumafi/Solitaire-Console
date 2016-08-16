@@ -1,6 +1,6 @@
 #pragma once
 
-#include <StreamWrapper.hpp>
+#include <HeaderWrapper.hpp>
 #include <ArchiveUtil.hpp>
 class HeaderStream;
 class DirectoryStream;
@@ -19,11 +19,11 @@ struct Meta
   boost::endian::big_uint8_buf_at changed[16];
 };
 
-template<class T> class MetaStream : public StreamWrapper<T>
+template<class T> class MetaStream : public HeaderWrapper<T>
 {
 public:
   MetaStream(HeaderStream* header, DirectoryStream* parent = nullptr);
-  virtual ~MetaStream();
+  virtual ~MetaStream(void);
   boost::posix_time::ptime created(void) const;
   boost::posix_time::ptime changed(void) const;
   std::string name() const;
@@ -39,14 +39,14 @@ private:
   void changed(void);
 };
 
-#include <Header.hpp>
 #include <Directory.hpp>
 
-template<class T> inline MetaStream<T>::MetaStream(HeaderStream* header, DirectoryStream* parent) : StreamWrapper<T>(header->m_stream)
+template<class T> inline MetaStream<T>::MetaStream(HeaderStream* header, DirectoryStream* parent)
+                                : HeaderWrapper<T>(header)
 {
 }
 
-template<class T> inline MetaStream<T>::~MetaStream()
+template<class T> inline MetaStream<T>::~MetaStream(void)
 {
 }
 

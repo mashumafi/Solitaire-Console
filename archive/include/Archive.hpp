@@ -19,10 +19,10 @@ class Archive : public Main
 {
 public:
   Archive(const std::string&);
-  Archive();
-  virtual ~Archive();
+  Archive(void);
+  virtual ~Archive(void);
   virtual int main(const std::vector<std::string>&) override;
-  void close();
+  void close(void);
 private:
   std::fstream m_stream;
   HeaderStream* m_header;

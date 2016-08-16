@@ -4,30 +4,31 @@
 
 using namespace std;
 
-Archive::Archive()
+Archive::Archive(void)
 {
 }
 
 Archive::Archive(const string& filename) : m_header(nullptr)
 {
-  m_stream.open(filename, ios::binary | ios::in);
-
-  if(!m_stream.is_open()) // create the file
+  fstream test;
+  test.open(filename, ios::binary | ios::in);
+  if(!test.is_open()) // create the file
   {
-    m_stream.open(filename, ios::binary | ios::out);
-    m_header = new HeaderStream(&m_stream);
+    test.open(filename, ios::binary | ios::out);
+    m_header = new HeaderStream(&test);
     m_header->save();
-  }
-  m_stream.open(filename, ios::binary | ios::in | ios::out);
-  if(m_header != nullptr)
-  {
     delete m_header;
   }
-  m_header = new HeaderStream(&m_stream);
-  m_header->load();
+  test.close();
+  m_stream.open(filename, ios::binary | ios::in | ios::out);
+  if(m_stream.is_open())
+  {
+    m_header = new HeaderStream(&m_stream);
+    m_header->load();
+  }
 }
 
-Archive::~Archive()
+Archive::~Archive(void)
 {
   delete m_header;
   close();
@@ -36,11 +37,16 @@ Archive::~Archive()
 int Archive::main(const vector<string>&)
 {
   Archive archive("test.db");
-  archive.close();
+  if(archive.m_stream.is_open())
+  {
+    std::cout << archive.m_stream.tellp() << "   " << archive.m_stream.tellg() << std::endl;
+    archive.m_header->getRoot()->save();
+    archive.close();
+  }
   return 0;
 }
 
-void Archive::close()
+void Archive::close(void)
 {
   m_stream.close();
 }
