@@ -26,6 +26,7 @@ private:
   DirectoryStream* m_root;
   AllocatorStream* m_alloc;
 template<class T, class U> friend class HeaderWrapper;
+friend class AllocatorStream;
 };
 
 #include <Allocator.hpp>
@@ -78,8 +79,6 @@ inline AllocatorStream* HeaderStream::getAllocator(void)
   {
     return m_alloc;
   }
-  m_stream->seekg(m_data.m_alloc.value() == 0 ? 0 : m_data.m_alloc.value());
-  m_data.m_alloc = m_stream->tellg();
-  save(&m_data.m_alloc);
+  m_stream->seekg(m_data.m_alloc.value() == 0 ? 0 : m_data.m_alloc.value(), std::ios::beg);
   return m_alloc = new AllocatorStream(this);
 }

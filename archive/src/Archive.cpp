@@ -39,9 +39,12 @@ int Archive::main(const vector<string>&)
   Archive archive("test.db");
   if(archive.m_stream.is_open())
   {
-    DirectoryStream* ds = archive.m_header->getRoot();
-    ds->create("Hello world");
-    ds->save();
+    DirectoryStream* root = archive.m_header->getRoot();
+    root->create("root");
+    root->save();
+    DirectoryStream* child = root->make();
+    child->create("child");
+    child->save();
     archive.close();
   }
   return 0;

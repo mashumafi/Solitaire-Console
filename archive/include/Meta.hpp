@@ -10,8 +10,6 @@ class DirectoryStream;
 #include <boost/date_time/posix_time/posix_time.hpp>
 #include <boost/endian/buffers.hpp>
 
-const std::string ISO_FORMAT = "YYYYMMDDTHHMMSS";
-
 enum MetaFlags
 {
   MF_Directory = 1,
@@ -106,7 +104,7 @@ template<class T, class U> inline void MetaStream<T, U>::load(void)
 
 template<class T, class U> inline void MetaStream<T, U>::create(const std::string& n)
 {
-  if(!m_created)
+  if(!this->m_created)
   {
     memset(&this->m_data, 0, sizeof(this->m_data));
     created();

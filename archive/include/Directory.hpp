@@ -37,10 +37,26 @@ inline DirectoryStream::~DirectoryStream(void)
 
 inline DirectoryStream* DirectoryStream::make(void)
 {
+  boost::endian::big_int64_buf_at* e_prt = nullptr;
+  for(unsigned int i = 0; i < sizeof(m_data.content); i++)
+  {
+    if(m_data.content[i].value() == 0)
+    {
+      e_prt = m_data.content + i;
+      break;
+    }
+  }
   getAllocator()->alloc();
-  // TODO: add to content
-  DirectoryStream* ds = new DirectoryStream(m_header, this);
-  return ds;
+  if(e_prt == nullptr)
+  {
+    e_prt = next()->make();
+  }
+  else
+  {
+    (*e_prt) = m_stream->tellg();
+    save(e_prt);
+  }
+  return new DirectoryStream(m_header, this);
 }
 
 inline FileStream* DirectoryStream::touch(void)
