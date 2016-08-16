@@ -110,6 +110,7 @@ template<class T, class U> inline void MetaStream<T, U>::create(const std::strin
     created();
     name(n);
     changed();
+    HeaderWrapper<T, U>::save();
     this->m_created = true;
   }
 }

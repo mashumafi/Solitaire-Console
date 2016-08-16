@@ -68,7 +68,6 @@ inline DirectoryStream* HeaderStream::getRoot(void)
     m_stream->seekg(m_data.m_root.value());
     m_root = new DirectoryStream(this);
     m_root->create("root");
-    m_root->save();
     return m_root;
   }
   m_stream->seekg(m_data.m_root.value(), std::ios::beg);

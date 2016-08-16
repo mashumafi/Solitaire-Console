@@ -60,7 +60,6 @@ inline DirectoryStream* DirectoryStream::make(std::string)
   }
   DirectoryStream* child = new DirectoryStream(m_header, this);
   child->create("child");
-  child->save();
   return child;
 }
 
