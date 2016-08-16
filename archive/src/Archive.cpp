@@ -40,11 +40,10 @@ int Archive::main(const vector<string>&)
   if(archive.m_stream.is_open())
   {
     DirectoryStream* root = archive.m_header->getRoot();
-    root->create("root");
-    root->save();
-    DirectoryStream* child = root->make();
-    child->create("child");
-    child->save();
+    std::cout << root->name() << std::endl;
+    DirectoryStream* child = root->getAbsDir(0);
+    std::cout << child->name() << std::endl;
+    //root->make("child");
     archive.close();
   }
   return 0;

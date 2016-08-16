@@ -63,14 +63,18 @@ inline DirectoryStream* HeaderStream::getRoot(void)
   if(m_data.m_root.value() == 0)
   {
     getAllocator()->alloc();
-  }
-  else
-  {
+    m_data.m_root = m_stream->tellg();
+    save(&m_data.m_root);
     m_stream->seekg(m_data.m_root.value());
+    m_root = new DirectoryStream(this);
+    m_root->create("root");
+    m_root->save();
+    return m_root;
   }
-  m_data.m_root = m_stream->tellg();
-  save(&m_data.m_root);
-  return m_root = new DirectoryStream(this);
+  m_stream->seekg(m_data.m_root.value(), std::ios::beg);
+  m_root = new DirectoryStream(this);
+  m_root->load();
+  return m_root;
 }
 
 inline AllocatorStream* HeaderStream::getAllocator(void)

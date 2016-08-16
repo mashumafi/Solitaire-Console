@@ -16,8 +16,9 @@ class DirectoryStream : public MetaStream<Directory, DirectoryStream>
 public:
   DirectoryStream(HeaderStream* header, DirectoryStream* parent = nullptr);
   virtual ~DirectoryStream(void);
-  DirectoryStream* make(void);
+  DirectoryStream* make(std::string);
   FileStream* touch(void);
+  DirectoryStream* getAbsDir(long);
 private:
   MetaStream** m_meta;
 };
@@ -35,7 +36,7 @@ inline DirectoryStream::~DirectoryStream(void)
 {
 }
 
-inline DirectoryStream* DirectoryStream::make(void)
+inline DirectoryStream* DirectoryStream::make(std::string)
 {
   boost::endian::big_int64_buf_at* e_prt = nullptr;
   for(unsigned int i = 0; i < sizeof(m_data.content); i++)
@@ -55,8 +56,12 @@ inline DirectoryStream* DirectoryStream::make(void)
   {
     (*e_prt) = m_stream->tellg();
     save(e_prt);
+    m_stream->seekg(e_prt->value(), std::ios::beg);
   }
-  return new DirectoryStream(m_header, this);
+  DirectoryStream* child = new DirectoryStream(m_header, this);
+  child->create("child");
+  child->save();
+  return child;
 }
 
 inline FileStream* DirectoryStream::touch(void)
@@ -65,4 +70,20 @@ inline FileStream* DirectoryStream::touch(void)
   // TODO: add to content
   FileStream* fs = new FileStream(m_header, this);
   return fs;
+}
+
+inline DirectoryStream* DirectoryStream::getAbsDir(long i)
+{
+  if(m_meta[i] != nullptr)
+  {
+    return dynamic_cast<DirectoryStream*>(m_meta[i]);
+  }
+  if(m_data.content[i].value() != 0)
+  {
+    m_stream->seekg(m_data.content[i].value(), std::ios::beg);
+    m_meta[i] = new DirectoryStream(m_header, this);
+    m_meta[i]->load();
+    return dynamic_cast<DirectoryStream*>(m_meta[i]);
+  }
+  return nullptr;
 }

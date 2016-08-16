@@ -78,7 +78,7 @@ template<class T, class U> inline boost::posix_time::ptime MetaStream<T, U>::cha
 template<class T, class U> inline std::string MetaStream<T, U>::name() const
 {
   std::string ret;
-  big_to_string(this->m_data, ret, sizeof(this->m_data));
+  big_to_string(this->m_data.name, ret, sizeof(this->m_data.name));
   return ret;
 }
 
