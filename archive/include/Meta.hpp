@@ -14,9 +14,9 @@ const std::string ISO_FORMAT = "YYYYMMDDTHHMMSS";
 
 struct Meta
 {
-  boost::endian::big_uint8_buf_at name[256];
   boost::endian::big_uint8_buf_at created[16];
   boost::endian::big_uint8_buf_at changed[16];
+  boost::endian::big_uint8_buf_at name[256];
 };
 
 template<class T> class MetaStream : public HeaderWrapper<T>
@@ -39,6 +39,7 @@ private:
   void changed(void);
 };
 
+#include <StreamWrapper.hpp>
 #include <Directory.hpp>
 
 template<class T> inline MetaStream<T>::MetaStream(HeaderStream* header, DirectoryStream* parent)
@@ -67,14 +68,14 @@ template<class T> inline boost::posix_time::ptime MetaStream<T>::changed(void) c
 template<class T> inline std::string MetaStream<T>::name() const
 {
   std::string ret;
-  string_to_big(ret, this->m_data, sizeof(this->m_data));
+  big_to_string(this->m_data, ret, sizeof(this->m_data));
   return ret;
 }
 
 template<class T> inline void MetaStream<T>::name(const std::string& s)
 {
-  big_to_string(this->m_data, s, sizeof(this->m_data));
-  save(this->m_data.name);
+  string_to_big(s, this->m_data.name, sizeof(this->m_data.name));
+  HeaderWrapper<T>::save(&this->m_data.name);
 }
 
 template<class T> inline void MetaStream<T>::saved(void)
@@ -84,7 +85,7 @@ template<class T> inline void MetaStream<T>::saved(void)
 
 template<class T> inline void MetaStream<T>::load(void)
 {
-  StreamWrapper<T>::load();
+  HeaderWrapper<T>::load();
 }
 
 template<class T> inline void MetaStream<T>::create(const std::string& n)
@@ -105,7 +106,7 @@ template<class T> inline void MetaStream<T>::parent(DirectoryStream*)
 
 template<class T> inline void MetaStream<T>::created(void)
 {
-  string_to_big(boost::posix_time::to_iso_string(boost::posix_time::second_clock::local_time()), this->data.created, sizeof(this->m_data.created));
+  string_to_big(boost::posix_time::to_iso_string(boost::posix_time::second_clock::local_time()), this->m_data.created, sizeof(this->m_data.created));
 }
 
 

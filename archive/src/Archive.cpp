@@ -39,8 +39,9 @@ int Archive::main(const vector<string>&)
   Archive archive("test.db");
   if(archive.m_stream.is_open())
   {
-    std::cout << archive.m_stream.tellp() << "   " << archive.m_stream.tellg() << std::endl;
-    archive.m_header->getRoot()->save();
+    DirectoryStream* ds = archive.m_header->getRoot();
+    ds->create("Hello world");
+    ds->save();
     archive.close();
   }
   return 0;
