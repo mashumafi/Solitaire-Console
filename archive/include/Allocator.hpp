@@ -7,7 +7,7 @@ class HeaderStream;
 
 struct Allocator
 {
-  boost::endian::big_int64_buf_at pos[101];
+  boost::endian::big_int64_buf_at content[101];
   boost::endian::big_int64_buf_at next;
 };
 
@@ -19,7 +19,7 @@ public:
   void alloc(void);
   void erase(long);
   void remove(void);
-  boost::endian::big_int64_buf_at* make(void);
+  void add(void);
 protected:
   void saved(void) {}
 friend class StreamWrapper<Allocator, AllocatorStream>;
@@ -48,16 +48,16 @@ inline void AllocatorStream::alloc(void)
   {
     long g;
     unsigned int i = 0;
-    for(; i < sizeof(m_data.pos); i++)
+    for(; i < sizeof(m_data.content); i++)
     {
-      if(m_data.pos[i].value() != 0)
+      if(m_data.content[i].value() != 0)
       {
-        g = m_data.pos[i].value();
-        m_data.pos[i] = 0;
+        g = m_data.content[i].value();
+        m_data.content[i] = 0;
         break;
       }
     }
-    if(i >= sizeof(m_data.pos))
+    if(i >= sizeof(m_data.content))
     {
       if(hasNext())
       {
@@ -88,15 +88,15 @@ inline void AllocatorStream::erase(long p)
   else
   {
     unsigned int i = 0;
-    for(; i < sizeof(m_data.pos); i++)
+    for(; i < sizeof(m_data.content); i++)
     {
-      if(m_data.pos[i].value() == 0)
+      if(m_data.content[i].value() == 0)
       {
-        m_data.pos[i] = p;
+        m_data.content[i] = p;
         break;
       }
     }
-    if(i >= sizeof(m_data.pos))
+    if(i >= sizeof(m_data.content))
     {
       next()->erase(p);
     }
@@ -112,22 +112,25 @@ inline void AllocatorStream::remove(void)
   this->getAllocator()->erase(this->pos());
 }
 
-inline boost::endian::big_int64_buf_at* AllocatorStream::make(void)
+inline void AllocatorStream::add(void)
 {
   boost::endian::big_int64_buf_at* e_prt = nullptr;
-  for(unsigned int i = 0; i < sizeof(m_data.pos); i++)
+  for(unsigned int i = 0; i < sizeof(m_data.content); i++)
   {
-    if(m_data.pos[i].value() == 0)
+    if(m_data.content[i].value() == 0)
     {
-      e_prt = m_data.pos + i;
+      e_prt = m_data.content + i;
       break;
     }
   }
   if(e_prt == nullptr)
   {
-    return next()->make();
+    next()->add();
   }
-  (*e_prt) = m_stream->tellg();
-  save(e_prt);
-  return e_prt;
+  else
+  {
+    (*e_prt) = m_stream->tellg();
+    save(e_prt);
+    m_stream->seekg(e_prt->value(), std::ios::beg);
+  }
 }

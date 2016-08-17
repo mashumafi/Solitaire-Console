@@ -110,6 +110,10 @@ template<class T, class U> inline void MetaStream<T, U>::create(const std::strin
     created();
     name(n);
     changed();
+    if(dynamic_cast<DirectoryStream*>(this))
+    {
+      this->m_data.flags = this->m_data.flags.value() | MF_Directory;
+    }
     HeaderWrapper<T, U>::save();
     this->m_created = true;
   }

@@ -30,21 +30,32 @@ Archive::Archive(const string& filename) : m_header(nullptr)
 
 Archive::~Archive(void)
 {
-  delete m_header;
+  if(m_header != nullptr)
+  {
+    delete m_header;
+  }
   close();
 }
 
 int Archive::main(const vector<string>&)
 {
-  Archive archive("test.db");
-  if(archive.m_stream.is_open())
+  std::remove("test.db");
+  Archive oarchive("test.db");
+  if(oarchive.m_stream.is_open())
   {
-    DirectoryStream* root = archive.m_header->getRoot();
+    DirectoryStream* root = oarchive.m_header->getRoot();
+    root->make("child");
+    oarchive.close();
+  }
+  
+  Archive iarchive("test.db");
+  if(iarchive.m_stream.is_open())
+  {
+    DirectoryStream* root = iarchive.m_header->getRoot();
     std::cout << root->name() << std::endl;
     DirectoryStream* child = root->getAbsDir(0);
     std::cout << child->name() << std::endl;
-    //root->make("child");
-    archive.close();
+    iarchive.close();
   }
   return 0;
 }
