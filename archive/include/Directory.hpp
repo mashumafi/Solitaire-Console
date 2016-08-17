@@ -83,7 +83,7 @@ inline DirectoryStream* DirectoryStream::getAbsDir(unsigned long i)
   {
     return dynamic_cast<DirectoryStream*>(m_meta[i]);
   }
-  AllocatorStream* alloc;
+  AllocatorStream* alloc = nullptr;
   if(i >= sizeof(m_data.content))
   {
     i -= sizeof(Allocator::content);

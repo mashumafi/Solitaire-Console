@@ -4,7 +4,7 @@
 
 using namespace std;
 
-Archive::Archive(void)
+Archive::Archive(void) : m_header(nullptr)
 {
 }
 
@@ -18,6 +18,7 @@ Archive::Archive(const string& filename) : m_header(nullptr)
     m_header = new HeaderStream(&test);
     m_header->save();
     delete m_header;
+    m_header = nullptr;
   }
   test.close();
   m_stream.open(filename, ios::binary | ios::in | ios::out);
