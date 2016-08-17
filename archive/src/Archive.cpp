@@ -8,7 +8,7 @@ Archive::Archive(void) : m_header(nullptr)
 {
 }
 
-Archive::Archive(const string& filename) : m_header(nullptr)
+Archive::Archive(const string& filename) : Archive()
 {
   fstream test;
   test.open(filename, ios::binary | ios::in);

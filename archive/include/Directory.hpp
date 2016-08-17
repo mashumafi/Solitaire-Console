@@ -20,7 +20,7 @@ public:
   FileStream* touch(std::string);
   DirectoryStream* getAbsDir(unsigned long);
 private:
-  MetaStream** m_meta;
+  std::vector<MetaStream*> m_meta;
   void addMeta(void);
 };
 
@@ -28,7 +28,7 @@ private:
 
 inline DirectoryStream::DirectoryStream(HeaderStream* header, DirectoryStream* parent)
                       : MetaStream<Directory, DirectoryStream>(header, parent)
-                      , m_meta(new MetaStream*[sizeof(m_data.content)]())
+                      , m_meta((sizeof(m_data.content)), nullptr)
 {
     std::cout << "Directory m_pos: " << pos() << std::endl;
 }
