@@ -42,6 +42,106 @@ BOOST_AUTO_TEST_CASE(add_child_in)
   iarchive.close();
 }
 
+BOOST_AUTO_TEST_CASE(add_children_out)
+{
+  std::remove("test.db");
+  Archive oarchive("test.db");
+  DirectoryStream* root = oarchive.getRoot();
+  
+  oarchive.close();
+}
 
+BOOST_AUTO_TEST_CASE(add_children_in)
+{
+  Archive iarchive("test.db");
+  DirectoryStream* root = iarchive.getRoot();
+  
+  iarchive.close();
+}
+
+BOOST_AUTO_TEST_CASE(add_recursive_out)
+{
+  std::remove("test.db");
+  Archive oarchive("test.db");
+  DirectoryStream* root = oarchive.getRoot();
+  
+  oarchive.close();
+}
+
+BOOST_AUTO_TEST_CASE(add_recursive_in)
+{
+  Archive iarchive("test.db");
+  DirectoryStream* root = iarchive.getRoot();
+  
+  iarchive.close();
+}
+
+BOOST_AUTO_TEST_CASE(delete_out)
+{
+  std::remove("test.db");
+  Archive oarchive("test.db");
+  DirectoryStream* root = oarchive.getRoot();
+  
+  oarchive.close();
+}
+
+BOOST_AUTO_TEST_CASE(delete_in)
+{
+  Archive iarchive("test.db");
+  DirectoryStream* root = iarchive.getRoot();
+  
+  iarchive.close();
+}
+
+BOOST_AUTO_TEST_CASE(delete_recursive_out)
+{
+  std::remove("test.db");
+  Archive oarchive("test.db");
+  DirectoryStream* root = oarchive.getRoot();
+  
+  oarchive.close();
+}
+
+BOOST_AUTO_TEST_CASE(delete_recursive_in)
+{
+  Archive iarchive("test.db");
+  DirectoryStream* root = iarchive.getRoot();
+  
+  iarchive.close();
+}
+
+BOOST_AUTO_TEST_CASE(move_out)
+{
+  std::remove("test.db");
+  Archive oarchive("test.db");
+  DirectoryStream* root = oarchive.getRoot();
+  
+  oarchive.close();
+}
+
+BOOST_AUTO_TEST_CASE(move_in)
+{
+  Archive iarchive("test.db");
+  DirectoryStream* root = iarchive.getRoot();
+  
+  iarchive.close();
+}
+
+BOOST_AUTO_TEST_CASE(rename_out)
+{
+  std::remove("test.db");
+  Archive oarchive("test.db");
+  DirectoryStream* root = oarchive.getRoot();
+  
+  oarchive.close();
+}
+
+BOOST_AUTO_TEST_CASE(rename_in)
+{
+  Archive iarchive("test.db");
+  DirectoryStream* root = iarchive.getRoot();
+  
+  iarchive.close();
+}
 
 BOOST_AUTO_TEST_SUITE_END()
