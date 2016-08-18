@@ -1,5 +1,7 @@
 CMAKE_MINIMUM_REQUIRED(VERSION 2.8.4)
 
+ENABLE_TESTING()
+
 PROJECT(Terminal)
 SET(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake_modules)
 
@@ -22,7 +24,7 @@ ENDIF()
 SET(Boost_USE_MULTITHREADED   ON)
 SET(Boost_USE_STATIC_RUNTIME OFF)
 
-FIND_PACKAGE(Boost 1.54.0 COMPONENTS date_time filesystem regex serialization system thread REQUIRED)
+FIND_PACKAGE(Boost 1.54.0 COMPONENTS date_time filesystem regex serialization system thread unit_test_framework REQUIRED)
 INCLUDE_DIRECTORIES(${Boost_INCLUDE_DIRS})
 LINK_DIRECTORIES(${Boost_LIBRARY_DIRS})
 

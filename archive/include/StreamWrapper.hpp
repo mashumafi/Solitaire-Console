@@ -24,7 +24,7 @@ public:
     m_stream->seekg(m_pos, std::ios::beg);
     m_stream->read(reinterpret_cast<char*>(&m_data), sizeof(T)); 
   }
-  long pos(void) const
+  std::streampos pos(void) const
   {
     return m_pos;
   }
@@ -37,5 +37,5 @@ protected:
     m_stream->write(reinterpret_cast<const char*>(var), sizeof(V));
     const_cast<U*>(dynamic_cast<const U*>(this))->saved();
   }
-  long m_pos;
+  std::streamoff m_pos;
 };

@@ -17,7 +17,7 @@ public:
   AllocatorStream(HeaderStream* header);
   virtual ~AllocatorStream(void);
   void alloc(void);
-  void erase(long);
+  void erase(std::streampos);
   void remove(void);
   void add(void);
 protected:
@@ -40,13 +40,13 @@ inline AllocatorStream::~AllocatorStream(void)
 
 inline void AllocatorStream::alloc(void)
 {
-  if(pos() == 0)
+  if(pos() == std::streampos(0))
   {
     m_stream->seekg(0, std::ios::end);
   }
   else
   {
-    long g;
+    std::streampos g;
     unsigned int i = 0;
     for(; i < sizeof(m_data.content); i++)
     {
@@ -75,9 +75,9 @@ inline void AllocatorStream::alloc(void)
   }
 }
 
-inline void AllocatorStream::erase(long p)
+inline void AllocatorStream::erase(std::streampos p)
 {
-  if(pos() == 0)
+  if(pos() == std::streampos(0))
   {
     m_pos = p;
     memset(&this->m_data, 0, sizeof(this->m_data));
