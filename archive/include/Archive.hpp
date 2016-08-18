@@ -22,6 +22,7 @@ public:
   Archive(void);
   virtual ~Archive(void);
   virtual int main(const std::vector<std::string>&) override;
+  DirectoryStream* getRoot(void) const;
   void close(void);
 private:
   std::fstream m_stream;

@@ -29,6 +29,11 @@ Archive::Archive(const string& filename) : Archive()
   }
 }
 
+DirectoryStream* Archive::getRoot(void) const
+{
+  return m_header->getRoot();
+}
+
 Archive::~Archive(void)
 {
   if(m_header != nullptr)
