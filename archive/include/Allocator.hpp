@@ -1,7 +1,6 @@
 #pragma once
 
 #include <HeaderWrapper.hpp>
-class HeaderStream;
 
 #include <boost/endian/buffers.hpp>
 

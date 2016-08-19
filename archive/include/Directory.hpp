@@ -1,7 +1,7 @@
 #pragma once
 
 #include <Meta.hpp>
-class FileStream;
+#include <File.hpp>
 
 #include <string>
 
@@ -17,8 +17,6 @@ private:
   std::vector<MetaStream*> m_meta;
   unsigned int addMeta(void);
 };
-
-#include <File.hpp>
 
 inline DirectoryStream::DirectoryStream(HeaderStream* header, DirectoryStream* parent)
                       : MetaStream(header, parent)
