@@ -1,7 +1,7 @@
 #pragma once
 
 #include <Meta.hpp>
-class FileStream;
+#include <File.hpp>
 
 #include <string>
 
@@ -21,10 +21,8 @@ public:
   DirectoryStream* getAbsDir(unsigned long);
 private:
   std::vector<MetaStream*> m_meta;
-  void addMeta(void);
+  unsigned int addMeta(void);
 };
-
-#include <File.hpp>
 
 inline DirectoryStream::DirectoryStream(HeaderStream* header, DirectoryStream* parent)
                       : MetaStream<Directory, DirectoryStream>(header, parent)
@@ -35,12 +33,20 @@ inline DirectoryStream::DirectoryStream(HeaderStream* header, DirectoryStream* p
 
 inline DirectoryStream::~DirectoryStream(void)
 {
+  for(unsigned int i = 0; i < m_meta.size(); i++)
+  {
+    if(m_meta[i] != nullptr)
+    {
+      delete m_meta[i];
+    }
+  }
 }
 
-inline void DirectoryStream::addMeta(void)
+inline unsigned int DirectoryStream::addMeta(void)
 {
   boost::endian::big_int64_buf_at* e_prt = nullptr;
-  for(unsigned int i = 0; i < sizeof(m_data.content); i++)
+  unsigned int i = 0;
+  for(; i < sizeof(m_data.content); i++)
   {
     if(m_data.content[i].value() == 0)
     {
@@ -51,29 +57,34 @@ inline void DirectoryStream::addMeta(void)
   getAllocator()->alloc();
   if(e_prt == nullptr)
   {
-    next()->add();
+    return next()->add();
   }
   else
   {
     (*e_prt) = m_stream->tellg();
     save(e_prt);
     m_stream->seekg(e_prt->value(), std::ios::beg);
+    return i;
   }
 }
 
 inline DirectoryStream* DirectoryStream::make(std::string)
 {
-  addMeta();
+  unsigned int i = addMeta();
   DirectoryStream* child = new DirectoryStream(m_header, this);
   child->create("child");
+  if(i >= m_meta.size()) m_meta.resize(i + 1, nullptr);
+  m_meta[i] = child;
   return child;
 }
 
 inline FileStream* DirectoryStream::touch(std::string)
 {
-  addMeta();
+  unsigned int i = addMeta();
   FileStream* child = new FileStream(m_header, this);
   child->create("child");
+  if(i >= m_meta.size()) m_meta.resize(i + 1, nullptr);
+  //m_meta[i] = child;
   return child;
 }
 

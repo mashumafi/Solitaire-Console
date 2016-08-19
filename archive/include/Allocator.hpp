@@ -19,7 +19,7 @@ public:
   void alloc(void);
   void erase(std::streampos);
   void remove(void);
-  void add(void);
+  unsigned int add(void);
 protected:
   void saved(void) {}
 friend class StreamWrapper<Allocator, AllocatorStream>;
@@ -112,10 +112,11 @@ inline void AllocatorStream::remove(void)
   this->getAllocator()->erase(this->pos());
 }
 
-inline void AllocatorStream::add(void)
+inline unsigned int AllocatorStream::add(void)
 {
   boost::endian::big_int64_buf_at* e_prt = nullptr;
-  for(unsigned int i = 0; i < sizeof(m_data.content); i++)
+  unsigned int i = 0;
+  for(; i < sizeof(m_data.content); i++)
   {
     if(m_data.content[i].value() == 0)
     {
@@ -125,12 +126,13 @@ inline void AllocatorStream::add(void)
   }
   if(e_prt == nullptr)
   {
-    next()->add();
+    return next()->add();
   }
   else
   {
     (*e_prt) = m_stream->tellg();
     save(e_prt);
     m_stream->seekg(e_prt->value(), std::ios::beg);
+    return i;
   }
 }

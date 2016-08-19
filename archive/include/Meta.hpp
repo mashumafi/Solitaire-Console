@@ -53,6 +53,7 @@ private:
 
 template<class T, class U> inline MetaStream<T, U>::MetaStream(HeaderStream* header, DirectoryStream* parent)
                                                   : HeaderWrapper<T, U>(header)
+                                                  , m_parent(parent)
                                                   , m_created(false)
 {
 }
