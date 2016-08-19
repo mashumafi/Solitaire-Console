@@ -1,17 +1,11 @@
 #pragma once
 
 #include <Meta.hpp>
-#include <File.hpp>
+class FileStream;
 
 #include <string>
 
-struct Directory : Meta
-{
-  boost::endian::big_int64_buf_at content[64];
-  boost::endian::big_int64_buf_at next;
-};
-
-class DirectoryStream : public MetaStream<Directory, DirectoryStream>
+class DirectoryStream : public MetaStream
 {
 public:
   DirectoryStream(HeaderStream* header, DirectoryStream* parent = nullptr);
@@ -24,8 +18,10 @@ private:
   unsigned int addMeta(void);
 };
 
+#include <File.hpp>
+
 inline DirectoryStream::DirectoryStream(HeaderStream* header, DirectoryStream* parent)
-                      : MetaStream<Directory, DirectoryStream>(header, parent)
+                      : MetaStream(header, parent)
                       , m_meta((sizeof(m_data.content)), nullptr)
 {
     std::cout << "Directory m_pos: " << pos() << std::endl;
@@ -84,7 +80,7 @@ inline FileStream* DirectoryStream::touch(std::string)
   FileStream* child = new FileStream(m_header, this);
   child->create("child");
   if(i >= m_meta.size()) m_meta.resize(i + 1, nullptr);
-  //m_meta[i] = child;
+  m_meta[i] = child;
   return child;
 }
 

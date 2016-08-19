@@ -2,8 +2,6 @@
 
 #include <HeaderWrapper.hpp>
 #include <ArchiveUtil.hpp>
-class HeaderStream;
-class DirectoryStream;
 
 #include <string>
 
@@ -22,9 +20,11 @@ struct Meta
   boost::endian::big_uint8_buf_at created[16];
   boost::endian::big_uint8_buf_at changed[16];
   boost::endian::big_uint8_buf_at name[256];
+  boost::endian::big_int64_buf_at content[64];
+  boost::endian::big_int64_buf_at next;
 };
 
-template<class T, class U> class MetaStream : public HeaderWrapper<T, U>
+class MetaStream : public HeaderWrapper<Meta, MetaStream>
 {
 public:
   MetaStream(HeaderStream* header, DirectoryStream* parent = nullptr);
@@ -38,9 +38,11 @@ public:
   DirectoryStream* parent(void) const;
   void parent(DirectoryStream*);
   void remove();
+  bool isHidden(void) const;
+  bool isDirectory(void) const;
 protected:
   void saved(void);
-friend class StreamWrapper<T, U>;
+friend class StreamWrapper<Meta, MetaStream>;
 private:
   DirectoryStream* m_parent;
   bool m_created;
@@ -48,48 +50,47 @@ private:
   void changed(void);
 };
 
-#include <StreamWrapper.hpp>
 #include <Directory.hpp>
 
-template<class T, class U> inline MetaStream<T, U>::MetaStream(HeaderStream* header, DirectoryStream* parent)
-                                                  : HeaderWrapper<T, U>(header)
+inline MetaStream::MetaStream(HeaderStream* header, DirectoryStream* parent)
+                                                  : HeaderWrapper<Meta, MetaStream>(header)
                                                   , m_parent(parent)
                                                   , m_created(false)
 {
 }
 
-template<class T, class U> inline MetaStream<T, U>::~MetaStream(void)
+inline MetaStream::~MetaStream(void)
 {
 }
 
-template<class T, class U> inline boost::posix_time::ptime MetaStream<T, U>::created(void) const
+inline boost::posix_time::ptime MetaStream::created(void) const
 {
   std::string iso;
   big_to_string(this->m_data.created, iso, sizeof(this->m_data.created));
   return boost::posix_time::from_iso_string(iso);
 }
 
-template<class T, class U> inline boost::posix_time::ptime MetaStream<T, U>::changed(void) const
+inline boost::posix_time::ptime MetaStream::changed(void) const
 {
   std::string iso;
   big_to_string(this->m_data.changed, iso, sizeof(this->m_data.changed));
   return boost::posix_time::from_iso_string(iso);
 }
 
-template<class T, class U> inline std::string MetaStream<T, U>::name() const
+inline std::string MetaStream::name() const
 {
   std::string ret;
   big_to_string(this->m_data.name, ret, sizeof(this->m_data.name));
   return ret;
 }
 
-template<class T, class U> inline void MetaStream<T, U>::name(const std::string& s)
+inline void MetaStream::name(const std::string& s)
 {
   string_to_big(s, this->m_data.name, sizeof(this->m_data.name));
-  HeaderWrapper<T, U>::save(&this->m_data.name);
+  HeaderWrapper<Meta, MetaStream>::save(&this->m_data.name);
 }
 
-template<class T, class U> inline void MetaStream<T, U>::saved(void)
+inline void MetaStream::saved(void)
 {
   if(this->m_created)
   {
@@ -97,13 +98,13 @@ template<class T, class U> inline void MetaStream<T, U>::saved(void)
   }
 }
 
-template<class T, class U> inline void MetaStream<T, U>::load(void)
+inline void MetaStream::load(void)
 {
-  HeaderWrapper<T, U>::load();
+  HeaderWrapper<Meta, MetaStream>::load();
   this->m_created = true;
 }
 
-template<class T, class U> inline void MetaStream<T, U>::create(const std::string& n)
+inline void MetaStream::create(const std::string& n)
 {
   if(!this->m_created)
   {
@@ -111,39 +112,49 @@ template<class T, class U> inline void MetaStream<T, U>::create(const std::strin
     created();
     name(n);
     changed();
-    if(dynamic_cast<DirectoryStream*>(this))
+    if(dynamic_cast<const DirectoryStream*>(this))
     {
       this->m_data.flags = this->m_data.flags.value() | MF_Directory;
     }
-    HeaderWrapper<T, U>::save();
+    HeaderWrapper<Meta, MetaStream>::save();
     this->m_created = true;
   }
 }
 
-template<class T, class U> inline DirectoryStream* MetaStream<T, U>::parent(void) const
+inline DirectoryStream* MetaStream::parent(void) const
 {
   return m_parent;
 }
 
-template<class T, class U> inline void MetaStream<T, U>::parent(DirectoryStream*)
+inline void MetaStream::parent(DirectoryStream*)
 {
 }
 
-template<class T, class U> inline void MetaStream<T, U>::created(void)
+inline void MetaStream::created(void)
 {
   string_to_big(boost::posix_time::to_iso_string(boost::posix_time::second_clock::local_time()), this->m_data.created, sizeof(this->m_data.created));
 }
 
-template<class T, class U> inline void MetaStream<T, U>::changed(void)
+inline void MetaStream::changed(void)
 {
   string_to_big(boost::posix_time::to_iso_string(boost::posix_time::second_clock::local_time()), this->m_data.changed, sizeof(this->m_data.changed));
 }
 
-template<class T, class U> inline void MetaStream<T, U>::remove(void)
+inline void MetaStream::remove(void)
 {
   if(this->hasNext())
   {
     this->next()->remove();
   }
   this->getAllocator()->erase(this->pos());
+}
+
+inline bool MetaStream::isHidden(void) const
+{
+  return m_data.flags.value() | MF_Hidden;
+}
+
+inline bool MetaStream::isDirectory(void) const
+{
+  return m_data.flags.value() | MF_Directory;
 }

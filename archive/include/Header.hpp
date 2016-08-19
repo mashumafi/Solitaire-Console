@@ -30,7 +30,7 @@ friend class AllocatorStream;
 };
 
 #include <Allocator.hpp>
-#include <Directory.hpp>
+#include <Meta.hpp>
 
 inline HeaderStream::HeaderStream(std::fstream* ios)
                    : StreamWrapper<Header, HeaderStream>(ios)

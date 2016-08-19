@@ -144,4 +144,38 @@ BOOST_AUTO_TEST_CASE(rename_in)
   iarchive.close();
 }
 
+BOOST_AUTO_TEST_CASE(is_directory_out)
+{
+  std::remove("test.db");
+  Archive oarchive("test.db");
+  DirectoryStream* root = oarchive.getRoot();
+  
+  oarchive.close();
+}
+
+BOOST_AUTO_TEST_CASE(is_directory_in)
+{
+  Archive iarchive("test.db");
+  DirectoryStream* root = iarchive.getRoot();
+  
+  iarchive.close();
+}
+
+BOOST_AUTO_TEST_CASE(is_hidden_out)
+{
+  std::remove("test.db");
+  Archive oarchive("test.db");
+  DirectoryStream* root = oarchive.getRoot();
+  BOOST_CHECK(root->isDirectory());
+  oarchive.close();
+}
+
+BOOST_AUTO_TEST_CASE(is_hidden_in)
+{
+  Archive iarchive("test.db");
+  DirectoryStream* root = iarchive.getRoot();
+  BOOST_CHECK(root->isDirectory());
+  iarchive.close();
+}
+
 BOOST_AUTO_TEST_SUITE_END()
