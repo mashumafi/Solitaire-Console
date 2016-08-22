@@ -25,7 +25,7 @@ BOOST_AUTO_TEST_CASE(get_root_in)
   iarchive.close();
 }
 
-BOOST_AUTO_TEST_CASE(add_child_out)
+BOOST_AUTO_TEST_CASE(add_child_directory_out)
 {
   std::remove("test.db");
   Archive oarchive("test.db");
@@ -34,7 +34,7 @@ BOOST_AUTO_TEST_CASE(add_child_out)
   oarchive.close();
 }
 
-BOOST_AUTO_TEST_CASE(add_child_in)
+BOOST_AUTO_TEST_CASE(add_child_directory_in)
 {
   Archive iarchive("test.db");
   DirectoryStream* root = iarchive.getRoot();
@@ -42,7 +42,7 @@ BOOST_AUTO_TEST_CASE(add_child_in)
   iarchive.close();
 }
 
-BOOST_AUTO_TEST_CASE(add_children_out)
+BOOST_AUTO_TEST_CASE(add_children_directories_out)
 {
   std::remove("test.db");
   Archive oarchive("test.db");
@@ -51,7 +51,7 @@ BOOST_AUTO_TEST_CASE(add_children_out)
   oarchive.close();
 }
 
-BOOST_AUTO_TEST_CASE(add_children_in)
+BOOST_AUTO_TEST_CASE(add_children_directories_in)
 {
   Archive iarchive("test.db");
   DirectoryStream* root = iarchive.getRoot();
@@ -59,7 +59,7 @@ BOOST_AUTO_TEST_CASE(add_children_in)
   iarchive.close();
 }
 
-BOOST_AUTO_TEST_CASE(add_recursive_out)
+BOOST_AUTO_TEST_CASE(add_recursive_directory_out)
 {
   std::remove("test.db");
   Archive oarchive("test.db");
@@ -68,7 +68,7 @@ BOOST_AUTO_TEST_CASE(add_recursive_out)
   oarchive.close();
 }
 
-BOOST_AUTO_TEST_CASE(add_recursive_in)
+BOOST_AUTO_TEST_CASE(add_recursive_directory_in)
 {
   Archive iarchive("test.db");
   DirectoryStream* root = iarchive.getRoot();
@@ -76,7 +76,7 @@ BOOST_AUTO_TEST_CASE(add_recursive_in)
   iarchive.close();
 }
 
-BOOST_AUTO_TEST_CASE(delete_out)
+BOOST_AUTO_TEST_CASE(delete_directory_out)
 {
   std::remove("test.db");
   Archive oarchive("test.db");
@@ -85,7 +85,7 @@ BOOST_AUTO_TEST_CASE(delete_out)
   oarchive.close();
 }
 
-BOOST_AUTO_TEST_CASE(delete_in)
+BOOST_AUTO_TEST_CASE(delete_directory_in)
 {
   Archive iarchive("test.db");
   DirectoryStream* root = iarchive.getRoot();
@@ -93,7 +93,7 @@ BOOST_AUTO_TEST_CASE(delete_in)
   iarchive.close();
 }
 
-BOOST_AUTO_TEST_CASE(delete_recursive_out)
+BOOST_AUTO_TEST_CASE(delete_recursive_directory_out)
 {
   std::remove("test.db");
   Archive oarchive("test.db");
@@ -102,7 +102,7 @@ BOOST_AUTO_TEST_CASE(delete_recursive_out)
   oarchive.close();
 }
 
-BOOST_AUTO_TEST_CASE(delete_recursive_in)
+BOOST_AUTO_TEST_CASE(delete_recursive_directory_in)
 {
   Archive iarchive("test.db");
   DirectoryStream* root = iarchive.getRoot();
@@ -110,7 +110,7 @@ BOOST_AUTO_TEST_CASE(delete_recursive_in)
   iarchive.close();
 }
 
-BOOST_AUTO_TEST_CASE(move_out)
+BOOST_AUTO_TEST_CASE(move_directory_out)
 {
   std::remove("test.db");
   Archive oarchive("test.db");
@@ -119,7 +119,7 @@ BOOST_AUTO_TEST_CASE(move_out)
   oarchive.close();
 }
 
-BOOST_AUTO_TEST_CASE(move_in)
+BOOST_AUTO_TEST_CASE(move_directory_in)
 {
   Archive iarchive("test.db");
   DirectoryStream* root = iarchive.getRoot();
@@ -127,7 +127,7 @@ BOOST_AUTO_TEST_CASE(move_in)
   iarchive.close();
 }
 
-BOOST_AUTO_TEST_CASE(rename_out)
+BOOST_AUTO_TEST_CASE(rename_directory_out)
 {
   std::remove("test.db");
   Archive oarchive("test.db");
@@ -136,7 +136,7 @@ BOOST_AUTO_TEST_CASE(rename_out)
   oarchive.close();
 }
 
-BOOST_AUTO_TEST_CASE(rename_in)
+BOOST_AUTO_TEST_CASE(rename_directory_in)
 {
   Archive iarchive("test.db");
   DirectoryStream* root = iarchive.getRoot();
@@ -161,7 +161,7 @@ BOOST_AUTO_TEST_CASE(is_directory_in)
   iarchive.close();
 }
 
-BOOST_AUTO_TEST_CASE(is_hidden_out)
+BOOST_AUTO_TEST_CASE(is_hidden_directory_out)
 {
   std::remove("test.db");
   Archive oarchive("test.db");
@@ -170,7 +170,7 @@ BOOST_AUTO_TEST_CASE(is_hidden_out)
   oarchive.close();
 }
 
-BOOST_AUTO_TEST_CASE(is_hidden_in)
+BOOST_AUTO_TEST_CASE(is_hidden_directory_in)
 {
   Archive iarchive("test.db");
   DirectoryStream* root = iarchive.getRoot();
