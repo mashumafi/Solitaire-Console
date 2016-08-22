@@ -1,6 +1,11 @@
 #include <Card.hpp>
 
+#include <termcolor.hpp>
+
+#include <sstream>
+
 using namespace std;
+using namespace termcolor;
 
 Card::Card(int rank, int suit)
 {
@@ -11,25 +16,6 @@ Card::Card(int rank, int suit)
 
 Card::~Card()
 {
-}
-
-string Card::toString() const
-{
-  static const string RANK[] = { "A", "2",  "3",  "4",  "5",  "6",  "7",  "8",  "9",  "T",  "J",  "Q",  "K", "J", " "};
-  static const string SUIT[] = { "S", "H",  "C",  "D" };
-  string second;
-  if(rank <= King)
-  {
-    second = SUIT[suit];
-  }
-  else
-  {
-    second = RANK[rank];
-  }
-  if (visible)
-    return "[" + RANK[rank] + second + "]";
-  else
-    return "[  ]";
 }
 
 Color Card::getColor() const
@@ -50,4 +36,23 @@ bool Card::isRed() const
 bool Card::isBlack() const
 {
   return getColor() == BLACK;
+}
+
+ostream& operator<< (ostream& stream, Card &card)
+{
+  static const string RANK[] = { "A", "2",  "3",  "4",  "5",  "6",  "7",  "8",  "9",  "T",  "J",  "Q",  "K", "J", " "};
+  static const string SUIT[] = { "S", "H",  "C",  "D" };
+  string second;
+  if(card.rank <= King)
+  {
+    second = SUIT[card.suit];
+  }
+  else
+  {
+    second = RANK[card.rank];
+  }
+  return   (card.visible
+         ? (stream << on_white << (card.suit % 2 == 0 ? grey : red) << RANK[card.rank] << second)
+         : (stream << on_cyan << "  "))
+        << reset;
 }

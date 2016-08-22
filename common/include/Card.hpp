@@ -49,4 +49,6 @@ public:
   bool isSameColor(Card*) const;
   bool isRed(void) const;
   bool isBlack(void) const;
+
+friend std::ostream& operator<< (std::ostream &out, Card &card);
 };
