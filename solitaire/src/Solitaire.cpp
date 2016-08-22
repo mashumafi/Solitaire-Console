@@ -356,7 +356,7 @@ ostream& operator<< (ostream& stream, Solitaire &solitaire)
     }
   }
 
-  stream << on_grey << " Quit  Score" << endl << " 00 11    99 AA BB CC  DD    " << solitaire.m_score << endl  << " 22 33 44 55 66 77 88 " << endl;
+  stream << on_grey << endl << " 00 11    99 AA BB CC  Quit  Score" << endl  << " 22 33 44 55 66 77 88   DD    " << solitaire.m_score << endl;
   
   for (unsigned int i = 0; i <= King; i++)
   {
@@ -365,7 +365,14 @@ ostream& operator<< (ostream& stream, Solitaire &solitaire)
     {
       if (solitaire.tableau[j].size() > i)
       {
-        stream << *solitaire.tableau[j].at(i) << on_green << " ";
+        if (solitaire.tableau[j].at(i)->visible)
+        {
+          stream << *solitaire.tableau[j].at(i) << on_green << " ";
+        }
+        else
+        {
+          stream << on_cyan << setw(2) << (i + 1) << on_green << " ";
+        }
       }
       else
       {
