@@ -323,57 +323,50 @@ void Solitaire::addScore(ScoreModifier scoreModifier)
   m_score = max(0, m_score);
 }
 
-string Solitaire::toString() const
+ostream& operator<< (ostream& stream, Solitaire &solitaire)
 {
-  std::stringstream ret;
   
-  ret << "[" << setfill('0') << setw(2) << deck.size() << "]";
+  stream << "[" << setfill('0') << setw(2) << solitaire.deck.size() << "]";
 
-  if (!waste.empty())
+  if (!solitaire.waste.empty())
   {
-    ret << waste.back()->toString();
+    stream << solitaire.waste.back();
   }
   else
   {
-    ret << "[  ]";
+    stream << "[  ]";
   }
   
-  ret << "    ";
+  stream << "    ";
 
   for (int i = 0; i < 4; i++)
   {
-    if (!foundation[i].empty())
+    if (!solitaire.foundation[i].empty())
     {
-      ret << foundation[i].back()->toString();
+      stream << solitaire.foundation[i].back();
     }
     else
     {
-      ret << "[  ]";
+      stream << "[  ]";
     }
   }
 
-  ret << "  Quit  Score" << endl << " 00  11      99  AA  BB  CC    DD   " << m_score << endl << endl << " 22  33  44  55  66  77  88" << endl;
+  stream << "  Quit  Score" << endl << " 00  11      99  AA  BB  CC    DD   " << solitaire.m_score << endl << endl << " 22  33  44  55  66  77  88" << endl;
   
   for (unsigned int i = 0; i <= King; i++)
   {
     for (int j = 0; j < 7; j++)
     {
-      if (tableau[j].size() > i)
+      if (solitaire.tableau[j].size() > i)
       {
-        ret << tableau[j].at(i)->toString();
+        stream << *solitaire.tableau[j].at(i);
       }
       else
       {
-        ret << "    ";
+        stream << "    ";
       }
     }
-    ret << endl;
+    stream << endl;
   }
-  ret << "----------------------------------------" << endl;
-  return ret.str();
-}
-
-ostream& operator<< (ostream& stream, Solitaire &solitaire)
-{
-  return stream << solitaire.toString();
+  return stream << "----------------------------------------" << endl;
 }
