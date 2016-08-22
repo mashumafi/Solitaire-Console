@@ -1,10 +1,13 @@
 #include <Solitaire.hpp>
 
+#include <termcolor.hpp>
+
 #include <sstream>
 #include <iomanip>
 #include <algorithm>
 
 using namespace std;
+using namespace termcolor;
 
 Solitaire::Solitaire() : m_score(0)
 {
@@ -325,48 +328,51 @@ void Solitaire::addScore(ScoreModifier scoreModifier)
 
 ostream& operator<< (ostream& stream, Solitaire &solitaire)
 {
+  stream << on_green << setfill(' ') << setw(22) << "" << endl;
+  stream << on_green << " ";
+  stream << on_cyan << setfill('0') << setw(2) << solitaire.deck.size();
   
-  stream << "[" << setfill('0') << setw(2) << solitaire.deck.size() << "]";
-
+  stream << on_green << " ";
   if (!solitaire.waste.empty())
   {
-    stream << solitaire.waste.back();
+    stream << *solitaire.waste.back();
   }
   else
   {
-    stream << "[  ]";
+    stream << on_red << "  ";
   }
   
-  stream << "    ";
+  stream << on_green << "    ";
 
   for (int i = 0; i < 4; i++)
   {
     if (!solitaire.foundation[i].empty())
     {
-      stream << solitaire.foundation[i].back();
+      stream << *solitaire.foundation[i].back() << on_green << " ";
     }
     else
     {
-      stream << "[  ]";
+      stream << on_green << "   ";
     }
   }
 
-  stream << "  Quit  Score" << endl << " 00  11      99  AA  BB  CC    DD   " << solitaire.m_score << endl << endl << " 22  33  44  55  66  77  88" << endl;
+  stream << on_grey << " Quit  Score" << endl << " 00 11    99 AA BB CC  DD    " << solitaire.m_score << endl  << " 22 33 44 55 66 77 88 " << endl;
   
   for (unsigned int i = 0; i <= King; i++)
   {
+    stream << on_green << " ";
     for (int j = 0; j < 7; j++)
     {
       if (solitaire.tableau[j].size() > i)
       {
-        stream << *solitaire.tableau[j].at(i);
+        stream << *solitaire.tableau[j].at(i) << on_green << " ";
       }
       else
       {
-        stream << "    ";
+        stream << "   ";
       }
     }
     stream << endl;
   }
-  return stream << "----------------------------------------" << endl;
+  return stream << reset;
 }
