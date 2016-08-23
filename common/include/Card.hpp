@@ -40,7 +40,7 @@ class Card
 public:
   unsigned int rank : 4;
   unsigned int suit : 2;
-  unsigned int visible : 1;
+  bool visible : 1;
 
   Card(int, int);
   virtual ~Card();
