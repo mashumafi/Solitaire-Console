@@ -1,8 +1,0 @@
-PROJECT(sqlite)
-INCLUDE_DIRECTORIES(include)
-ADD_LIBRARY(sqlite src/sqlite3.c include/sqlite3.h)
-ADD_EXECUTABLE(sqlite3 src/shell.c include/sqlite3.h)
-TARGET_LINK_LIBRARIES(sqlite3 sqlite)
-IF(UNIX)
-  TARGET_LINK_LIBRARIES(sqlite3 pthread dl)
-ENDIF()
