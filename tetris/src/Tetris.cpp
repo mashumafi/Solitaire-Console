@@ -18,9 +18,11 @@ int Tetris::main(const vector<string>&)
     switch(c)
     {
       case 'a':
-        cout << "Hello world!" << endl;
-      default:
-        cout << "'" << static_cast<int>(c) << "'" << endl;
+        break;
+      case 's':
+        break;
+      case 'd':
+        break;
     }
   } while(c != 'q');
   return 0;
