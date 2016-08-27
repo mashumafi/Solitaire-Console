@@ -1,6 +1,8 @@
 #include <Archive.hpp>
 #include <fp.hpp>
 #include <Solitaire.hpp>
+#include <fib.hpp>
+#include <Tetris.hpp>
 
 #include <limits>
 
@@ -16,6 +18,8 @@ int main(int argc, char *argv[])
          << "1. Solitaire" << endl
          << "2. Archive" << endl
          << "3. fp" << endl
+         << "4. Tetris" << endl
+         << "5. Meta" << endl
          << "*. Quit" << endl;
     cin >> i;
     cin.clear();
@@ -31,6 +35,12 @@ int main(int argc, char *argv[])
         break;
       case 3:
         game = new fp;
+        break;
+      case 4:
+        game = new Tetris;
+        break;
+      case 5:
+        cout << fib<10>() << endl;
         break;
       default:
         i = 0;
