@@ -49,10 +49,10 @@ char getkey(void)
 #include <conio.h>
 char getkey(void)
 {
-  if (kbhit())
+  while(!kbhit())
   {
-    key =getch();
   }
+  return getch();
 }
 #else
 #endif
