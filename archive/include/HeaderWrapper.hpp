@@ -12,6 +12,7 @@ public:
   virtual ~HeaderWrapper(void);
   bool hasNext(void) const;
   AllocatorStream* next(void);
+  boost::endian::big_int8_buf_at getByte(int i);
 protected:
   HeaderStream* m_header;
   AllocatorStream* getAllocator(void);
@@ -57,6 +58,18 @@ template<class T, class U> inline AllocatorStream* HeaderWrapper<T, U>::next(voi
   {
   }
   return nullptr;
+}
+
+template<class T, class U> inline boost::endian::big_int8_buf_at HeaderWrapper<T, U>::getByte(int i)
+{
+  if(i > sizeof(this->m_data.content)*8)
+  {
+    next()->getByte(i - sizeof(this->m_data.content)*8);
+  }
+  else
+  {
+    return static_cast<boost::endian::big_int8_buf_at*>(this->m_data.content)[i];
+  }
 }
 
 template<class T, class U> inline AllocatorStream* HeaderWrapper<T, U>::getAllocator(void)

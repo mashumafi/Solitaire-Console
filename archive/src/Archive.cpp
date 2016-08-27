@@ -45,23 +45,11 @@ Archive::~Archive(void)
 
 int Archive::main(const vector<string>&)
 {
-  std::remove("test.db");
   Archive oarchive("test.db");
   if(oarchive.m_stream.is_open())
   {
     DirectoryStream* root = oarchive.m_header->getRoot();
-    root->make("child");
-    oarchive.close();
-  }
-  
-  Archive iarchive("test.db");
-  if(iarchive.m_stream.is_open())
-  {
-    DirectoryStream* root = iarchive.m_header->getRoot();
-    std::cout << root->name() << std::endl;
-    DirectoryStream* child = root->getAbsDir(0);
-    std::cout << child->name() << std::endl;
-    iarchive.close();
+    cout << root->name();
   }
   return 0;
 }

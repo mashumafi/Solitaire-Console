@@ -7,6 +7,7 @@ class FileStream : public MetaStream
 public:
   FileStream(HeaderStream* header, DirectoryStream* parent = nullptr);
   virtual ~FileStream(void);
+  long length(void) const;
 private:
 };
 
