@@ -6,20 +6,6 @@
 #if __unix__
 #include <termios.h>
 #include <unistd.h>
-void changemode(int dir)
-{
-  static struct termios oldt, newt;
-  
-  if ( dir == 1 )
-  {
-    tcgetattr( STDIN_FILENO, &oldt);
-    newt = oldt;
-    newt.c_lflag &= ~( ICANON | ECHO );
-    tcsetattr( STDIN_FILENO, TCSANOW, &newt);
-  }
-  else
-    tcsetattr( STDIN_FILENO, TCSANOW, &oldt);
-}
 int kbhit (void)
 {
   struct timeval tv;
@@ -37,12 +23,16 @@ int kbhit (void)
 char getkey(void)
 {
   int ch;
-  changemode(1);
+  static struct termios oldt, newt;
+  tcgetattr( STDIN_FILENO, &oldt);
+  newt = oldt;
+  newt.c_lflag &= ~( ICANON | ECHO );
+  tcsetattr( STDIN_FILENO, TCSANOW, &newt);
   while (!kbhit())
   {
   }
   ch = getchar();
-  changemode(0);
+  tcsetattr( STDIN_FILENO, TCSANOW, &oldt);
   return ch;
 }
 #elif _WINDOWS

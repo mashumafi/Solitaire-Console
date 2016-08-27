@@ -11,13 +11,17 @@ Tetris::~Tetris()
 
 int Tetris::main(const vector<string>&)
 {
-  char c = getkey();
-  switch(c)
+  char c;
+  do
   {
-    case 'a':
-      cout << "Hello world!" << endl;
-    default:
-      cout << "'" << c << "'" << endl;
-  }
+    c = getkey();
+    switch(c)
+    {
+      case 'a':
+        cout << "Hello world!" << endl;
+      default:
+        cout << "'" << static_cast<int>(c) << "'" << endl;
+    }
+  } while(c != 'q');
   return 0;
 }
