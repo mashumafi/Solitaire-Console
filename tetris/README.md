@@ -1,1 +1,1 @@
-Spin on the tic tac toe classic
+Classic tetris game using threads and colors in a terminal

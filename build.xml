@@ -1,0 +1,37 @@
+<project name="Terminal" default="test-debug">
+	<target name="debug">
+		<antcall target="build">
+			<param name="config" value="debug"/>
+		</antcall>
+	</target>
+	<target name="release">
+		<antcall target="build">
+			<param name="config" value="release"/>
+		</antcall>
+	</target>
+	<target name="build">
+		<echo message="Building ${config}"/>
+		<exec executable="cmake" failonerror="false">
+			<arg line="."/>
+		</exec>
+		<exec executable="cmake" failonerror="false">
+			<arg line="--build . --config ${config}"/>
+		</exec>
+	</target>
+	<target name="test-debug">
+		<antcall target="test">
+			<param name="config" value="debug"/>
+		</antcall>
+	</target>
+	<target name="test-release">
+		<antcall target="test">
+			<param name="config" value="release"/>
+		</antcall>
+	</target>
+	<target name="test" depends="build">
+		<echo message="Testing ${config}"/>
+		<exec executable="ctest" failonerror="false">
+			<arg line=". -C ${config}"/>
+		</exec>
+	</target>
+</project>
