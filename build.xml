@@ -1,37 +1,49 @@
 <project name="Terminal" default="test-debug">
+	<target name="clean">
+		<echo message="Cleaning ${c}"/>
+		<exec executable="cmake" failonerror="false">
+			<arg line="--build . --config ${c} --target=clean"/>
+		</exec>
+  </target>
+	<target name="rebuild">
+		<echo message="Rebilding ${c}"/>
+		<exec executable="cmake" failonerror="false">
+			<arg line="--build . --config ${c} --clean-first"/>
+		</exec>
+  </target>
 	<target name="debug">
 		<antcall target="build">
-			<param name="config" value="debug"/>
+			<param name="c" value="debug"/>
 		</antcall>
 	</target>
 	<target name="release">
 		<antcall target="build">
-			<param name="config" value="release"/>
+			<param name="c" value="release"/>
 		</antcall>
 	</target>
 	<target name="build">
-		<echo message="Building ${config}"/>
+		<echo message="Building ${c}"/>
 		<exec executable="cmake" failonerror="false">
 			<arg line="."/>
 		</exec>
 		<exec executable="cmake" failonerror="false">
-			<arg line="--build . --config ${config}"/>
+			<arg line="--build . --config ${c}"/>
 		</exec>
 	</target>
 	<target name="test-debug">
 		<antcall target="test">
-			<param name="config" value="debug"/>
+			<param name="c" value="debug"/>
 		</antcall>
 	</target>
 	<target name="test-release">
 		<antcall target="test">
-			<param name="config" value="release"/>
+			<param name="c" value="release"/>
 		</antcall>
 	</target>
 	<target name="test" depends="build">
-		<echo message="Testing ${config}"/>
+		<echo message="Testing ${c}"/>
 		<exec executable="ctest" failonerror="false">
-			<arg line=". -C ${config}"/>
+			<arg line=". -C ${c}"/>
 		</exec>
 	</target>
 </project>
