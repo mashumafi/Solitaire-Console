@@ -3,6 +3,7 @@
 #include <Solitaire.hpp>
 #include <fib.hpp>
 #include <Tetris.hpp>
+#include <Number.hpp>
 
 #include <limits>
 
@@ -52,6 +53,19 @@ int main(int argc, char *argv[])
       delete game;
     }
   } while (i != 0);
+  
+  Integer j(10);
+  Float f = 5;
+  f = f + f;
+  f = f - f;
+  f = f * f;
+  f = f / f;
+  Byte asdf = 1;
+  asdf++;
+  Short sh;
+  sh--;
+  Integer n(2);
+  cout << n << ' ' << (n^Integer(2)) << endl;
   
   return 0;
 }
