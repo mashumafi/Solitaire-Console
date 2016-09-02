@@ -18,7 +18,7 @@
   </target>
   <target name="rebuild">
     <echo message="Rebilding ${c}"/>
-    <exec executable="cmake" failonerror="false">
+    <exec executable="cmake" failonerror="true">
       <arg line="--build . --config ${c} --clean-first"/>
     </exec>
   </target>
@@ -29,10 +29,10 @@
   </target>
   <target name="build">
     <echo message="Building ${c}"/>
-    <exec executable="cmake" failonerror="false">
+    <exec executable="cmake" failonerror="true">
       <arg line="."/>
     </exec>
-    <exec executable="cmake" failonerror="false">
+    <exec executable="cmake" failonerror="true">
       <arg line="--build . --config ${c}"/>
     </exec>
   </target>
@@ -43,7 +43,7 @@
   </target>
   <target name="test" depends="build">
     <echo message="Testing ${c}"/>
-    <exec executable="ctest" failonerror="false">
+    <exec executable="ctest" failonerror="true">
       <arg line=". -C ${c}"/>
     </exec>
   </target>
