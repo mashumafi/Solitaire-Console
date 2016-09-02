@@ -3,6 +3,9 @@
 #include <math.h>
 #include <iostream>
 
+template<class T> class Number;
+template<class T> inline Number<T> N(T value);
+
 template<class T>
 class Number
 {
@@ -10,7 +13,7 @@ public:
   T value;
 public:
   Number() : Number<T>::Number(0) {}
-  Number(T) { this->value = value; }
+  Number(T value) { this->value = value; }
   //Number<T> operator =(const T& t) { return Number<T>(t); }
   Number<T> operator ++(int) { return this->value + 1; }
   Number<T> operator --(int) { return this->value - 1; }
@@ -18,7 +21,7 @@ public:
   Number<T> cbrt() { return ::cbrt(this->value); }
   template<class U> Number<T> operator +(const Number<U>& b)
   {
-    return this->value + b.value;
+    return N(this->value + b.value);
   }
   template<class U> Number<T> operator -(const Number<U>& b)
   {
@@ -58,13 +61,18 @@ public:
   }
   template<class U> Number<T> operator ^(const Number<U>& b)
   {
-    return pow(this->value, b.value);
+    return ::pow(this->value, b.value);
   }
 };
 
-template<class T> std::ostream& operator<<(std::ostream& out, const Number<T>& n)
+template<class T> inline std::ostream& operator<<(std::ostream& out, const Number<T>& n)
 {
    return out << n.value;
+}
+
+template<class T> inline Number<T> N(T value)
+{
+   return Number<T>(value);
 }
 
 #define Byte Number<char>
