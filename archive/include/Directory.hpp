@@ -13,6 +13,9 @@ public:
   DirectoryStream* make(std::string);
   FileStream* touch(std::string);
   DirectoryStream* getAbsDir(unsigned long);
+  std::shared_ptr<std::vector<MetaStream*>> list(void);
+  std::shared_ptr<std::vector<DirectoryStream*>> getDirectories(void);
+  std::shared_ptr<std::vector<FileStream*>> getFiles(void);
 private:
   std::vector<MetaStream*> m_meta;
   unsigned int addMeta(void);
@@ -129,4 +132,22 @@ inline DirectoryStream* DirectoryStream::getAbsDir(unsigned long i)
     return dynamic_cast<DirectoryStream*>(m_meta[i]);
   }
   return nullptr;
+}
+
+inline std::shared_ptr<std::vector<MetaStream*>> DirectoryStream::list(void)
+{
+  std::shared_ptr<std::vector<MetaStream*>> ret;
+  return ret;
+}
+
+inline std::shared_ptr<std::vector<DirectoryStream*>> DirectoryStream::getDirectories(void)
+{
+  std::shared_ptr<std::vector<DirectoryStream*>> ret;
+  return ret;
+}
+
+inline std::shared_ptr<std::vector<FileStream*>> DirectoryStream::getFiles(void)
+{
+  std::shared_ptr<std::vector<FileStream*>> ret;
+  return ret;
 }
