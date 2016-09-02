@@ -6,7 +6,7 @@ Main::~Main()
 {
 }
 
-int Main::main(int argc, char *argv[])
+int Main::main(int argc, char** argv)
 {
   vector<string> args;
   for(int i = 0; i < argc; i++)
@@ -21,7 +21,7 @@ int Main::main(const vector<string>&)
   return main();
 }
 
-int Main::main()
+int Main::main(void)
 {
   return 0;
 }

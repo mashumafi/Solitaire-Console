@@ -14,14 +14,14 @@ public:
 public:
   Number() : Number<T>::Number(0) {}
   Number(T value) { this->value = value; }
-  //Number<T> operator =(const T& t) { return Number<T>(t); }
+  Number<T> operator =(const T& t) { return Number<T>(t); }
   Number<T> operator ++(int) { return this->value + 1; }
   Number<T> operator --(int) { return this->value - 1; }
   Number<T> sqrt() { return ::sqrt(this->value); }
   Number<T> cbrt() { return ::cbrt(this->value); }
   template<class U> Number<T> operator +(const Number<U>& b)
   {
-    return N(this->value + b.value);
+    return this->value + b.value;
   }
   template<class U> Number<T> operator -(const Number<U>& b)
   {
