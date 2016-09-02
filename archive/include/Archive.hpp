@@ -16,6 +16,7 @@ public:
   Archive(const std::string&);
   Archive(void);
   virtual ~Archive(void);
+  using Main::main;
   virtual int main(const std::vector<std::string>&) override;
   DirectoryStream* getRoot(void) const;
   void close(void);
