@@ -30,7 +30,9 @@ inline AllocatorStream::AllocatorStream(HeaderStream* header)
                       : HeaderWrapper<Allocator, AllocatorStream>(header)
                       , m_header(header)
 {
-    std::cout << "Allocator m_pos: " << pos() << std::endl;
+#ifndef NDEBUG
+  std::cout << "Allocator m_pos: " << pos() << std::endl;
+#endif
 }
 
 inline AllocatorStream::~AllocatorStream(void)

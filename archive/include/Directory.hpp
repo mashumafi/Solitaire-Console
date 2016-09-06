@@ -25,7 +25,9 @@ inline DirectoryStream::DirectoryStream(HeaderStream* header, DirectoryStream* p
                       : MetaStream(header, parent)
                       , m_meta((sizeof(m_data.content)), nullptr)
 {
-    std::cout << "Directory m_pos: " << pos() << std::endl;
+#ifndef NDEBUG
+  std::cout << "Directory m_pos: " << pos() << std::endl;
+#endif
 }
 
 inline DirectoryStream::~DirectoryStream(void)

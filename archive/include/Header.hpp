@@ -37,7 +37,9 @@ inline HeaderStream::HeaderStream(std::fstream* ios)
                    , m_root(nullptr)
                    , m_alloc(nullptr)
 {
+#ifndef NDEBUG
   std::cout << "Header    m_pos: " << pos() << std::endl;
+#endif
   m_data.m_root = 0;
   m_data.m_alloc = 0;
 }

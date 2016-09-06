@@ -14,7 +14,9 @@ private:
 inline FileStream::FileStream(HeaderStream* header, DirectoryStream* parent)
                  : MetaStream(header, parent)
 {
-    std::cout << "File m_pos: " << pos() << std::endl;
+#ifndef NDEBUG
+  std::cout << "File m_pos: " << pos() << std::endl;
+#endif
 }
 
 inline FileStream::~FileStream(void)
