@@ -1,7 +1,5 @@
 #include <Archive.hpp>
-#include <fp.hpp>
 #include <Solitaire.hpp>
-#include <fib.hpp>
 #include <Tetris.hpp>
 #include <Number.hpp>
 
@@ -9,7 +7,7 @@
 
 using namespace std;
 
-int main(int argc, char *argv[])
+int main(int argc, char** argv)
 {
   Main* game;
   
@@ -18,9 +16,7 @@ int main(int argc, char *argv[])
     cout << "Pick a game:" << endl
          << "1. Solitaire" << endl
          << "2. Archive" << endl
-         << "3. fp" << endl
-         << "4. Tetris" << endl
-         << "5. Meta" << endl
+         << "3. Tetris" << endl
          << "*. Quit" << endl;
     cin >> i;
     cin.clear();
@@ -35,13 +31,7 @@ int main(int argc, char *argv[])
         game = new Archive;
         break;
       case 3:
-        game = new fp;
-        break;
-      case 4:
         game = new Tetris;
-        break;
-      case 5:
-        cout << fib<10>() << endl;
         break;
       default:
         i = 0;
@@ -64,8 +54,8 @@ int main(int argc, char *argv[])
   asdf++;
   Short sh;
   sh--;
-  Integer n(2);
-  cout << n << ' ' << (n^Integer(2)) << endl;
+  Integer n(4);
+  cout << n << ' ' << (n^N(2.51)).sqrt() << endl;
   
   return 0;
 }

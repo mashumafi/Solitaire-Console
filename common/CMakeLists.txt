@@ -1,6 +1,7 @@
 PROJECT(common)
 add_modules(source Card Deck Grid Main Piece Hand Player Random)
 ADD_LIBRARY(common ${source} include/termcolor.hpp src/sqlite3.c include/sqlite3.h include/Keyboard.hpp include/Number.hpp)
+TARGET_INCLUDE_DIRECTORIES(common PUBLIC include)
 IF(UNIX)
   TARGET_LINK_LIBRARIES(common pthread dl)
 ENDIF()
