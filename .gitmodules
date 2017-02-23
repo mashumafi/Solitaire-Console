@@ -1,0 +1,3 @@
+[submodule "dependencies/termcolor"]
+	path = dependencies/termcolor
+	url = git@github.com:ikalnytskyi/termcolor.git
